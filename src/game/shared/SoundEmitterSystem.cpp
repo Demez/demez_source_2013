@@ -16,6 +16,8 @@
 #include "checksum_crc.h"
 #include "tier0/icommandline.h"
 
+#include "icvar.h"  // get host_timescale value and change pitch by it
+
 #if defined( TF_CLIENT_DLL ) || defined( TF_DLL )
 #include "tf_shareddefs.h"
 #include "tf_classdata.h"
@@ -497,16 +499,19 @@ public:
 			params.volume = ep.m_flVolume;
 		}
 
+		static const ConVar* pHostTimescale;
+		pHostTimescale = cvar->FindVar( "host_timescale" );
+
 #if !defined( CLIENT_DLL )
 		bool bSwallowed = CEnvMicrophone::OnSoundPlayed( 
 			entindex, 
 			params.soundname, 
 			params.soundlevel, 
 			params.volume, 
-			ep.m_nFlags, 
-			params.pitch, 
+			ep.m_nFlags | SND_SHOULDPAUSE,
+			Clamp( int( params.pitch * pHostTimescale->GetFloat() ), 0, 255 ),
 			ep.m_pOrigin, 
-			ep.m_flSoundTime,
+			ep.m_flSoundTime / pHostTimescale->GetFloat(),
 			ep.m_UtlVecSoundOrigin );
 		if ( bSwallowed )
 			return;
@@ -517,9 +522,8 @@ public:
 		{
 			Msg( "Sound %s:%s was not precached\n", ep.m_pSoundName, params.soundname );
 		}
-#endif
-
-		float st = ep.m_flSoundTime;
+#endif		
+		float st = ep.m_flSoundTime / pHostTimescale->GetFloat();
 		if ( !st && 
 			params.delay_msec != 0 )
 		{
@@ -533,8 +537,8 @@ public:
 			params.soundname,
 			params.volume,
 			(soundlevel_t)params.soundlevel,
-			ep.m_nFlags,
-			params.pitch,
+			ep.m_nFlags | SND_SHOULDPAUSE,
+			Clamp( int( params.pitch * pHostTimescale->GetFloat() ), 0, 255 ),
 			ep.m_nSpecialDSP,
 			ep.m_pOrigin,
 			NULL,
@@ -573,21 +577,25 @@ public:
 		}
 #endif // STAGING_ONLY
 
+		static const ConVar* pHostTimescale;
+		pHostTimescale = cvar->FindVar( "host_timescale" );
+
 		if ( ep.m_pSoundName && 
 			( Q_stristr( ep.m_pSoundName, ".wav" ) || 
 			  Q_stristr( ep.m_pSoundName, ".mp3" ) || 
 			  ep.m_pSoundName[0] == '!' ) )
 		{
 #if !defined( CLIENT_DLL )
+
 			bool bSwallowed = CEnvMicrophone::OnSoundPlayed( 
 				entindex, 
 				ep.m_pSoundName, 
 				ep.m_SoundLevel, 
 				ep.m_flVolume, 
-				ep.m_nFlags, 
-				ep.m_nPitch, 
+				ep.m_nFlags | SND_SHOULDPAUSE,
+				Clamp( int( ep.m_nPitch * pHostTimescale->GetFloat() ), 0, 255 ),
 				ep.m_pOrigin, 
-				ep.m_flSoundTime,
+				ep.m_flSoundTime / pHostTimescale->GetFloat(),
 				ep.m_UtlVecSoundOrigin );
 			if ( bSwallowed )
 				return;
@@ -612,14 +620,14 @@ public:
 				ep.m_pSoundName, 
 				ep.m_flVolume, 
 				ep.m_SoundLevel, 
-				ep.m_nFlags, 
-				ep.m_nPitch, 
+				ep.m_nFlags | SND_SHOULDPAUSE,
+				Clamp( int( ep.m_nPitch * pHostTimescale->GetFloat() ), 0, 255 ),
 				ep.m_nSpecialDSP,
 				ep.m_pOrigin,
 				NULL, 
 				&ep.m_UtlVecSoundOrigin,
 				true, 
-				ep.m_flSoundTime,
+				ep.m_flSoundTime / pHostTimescale->GetFloat(),
 				ep.m_nSpeakerEntity );
 			if ( ep.m_pflSoundDuration )
 			{
