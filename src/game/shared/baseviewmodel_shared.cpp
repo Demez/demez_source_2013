@@ -30,6 +30,13 @@ extern ConVar in_forceuser;
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+#if defined( CLIENT_DLL )
+static ConVar viewmodel_lag_scale( "viewmodel_lag_scale", "1.0", FCVAR_ARCHIVE, "How much to scale the Viewmodel lag. Default of 5.0" );
+static ConVar viewmodel_lag_dir( "viewmodel_lag_dir", "-1.0", FCVAR_ARCHIVE, "The Direction the Viewmodel goes when it lags" );
+static ConVar viewmodel_lag_speed( "viewmodel_lag_speed", "5.0", FCVAR_ARCHIVE, "The speed of the viewmodel lag" );
+static ConVar viewmodel_lag_max( "viewmodel_lag_max", "1.5", FCVAR_ARCHIVE, "The speed of the viewmodel lag" );
+#endif
+
 #define VIEWMODEL_ANIMATION_PARITY_BITS 3
 #define SCREEN_OVERLAY_MATERIAL "vgui/screens/vgui_overlay"
 
@@ -462,10 +469,12 @@ void CBaseViewModel::CalcViewModelView( CBasePlayer *owner, const Vector& eyePos
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-float g_fMaxViewModelLag = 1.5f;
+//float g_fMaxViewModelLag = 1.5f;
 
+// why is this on the client AND server?
 void CBaseViewModel::CalcViewModelLag( Vector& origin, QAngle& angles, QAngle& original_angles )
 {
+#ifdef CLIENT_DLL
 	Vector vOriginalOrigin = origin;
 	QAngle vOriginalAngles = angles;
 
@@ -478,14 +487,14 @@ void CBaseViewModel::CalcViewModelLag( Vector& origin, QAngle& angles, QAngle& o
 		Vector vDifference;
 		VectorSubtract( forward, m_vecLastFacing, vDifference );
 
-		float flSpeed = 5.0f;
+		float flSpeed = viewmodel_lag_speed.GetFloat();  // 5.0f;
 
 		// If we start to lag too far behind, we'll increase the "catch up" speed.  Solves the problem with fast cl_yawspeed, m_yaw or joysticks
 		//  rotating quickly.  The old code would slam lastfacing with origin causing the viewmodel to pop to a new position
 		float flDiff = vDifference.Length();
-		if ( (flDiff > g_fMaxViewModelLag) && (g_fMaxViewModelLag > 0.0f) )
+		if ( (flDiff > viewmodel_lag_max.GetFloat()) && ( viewmodel_lag_max.GetFloat() > 0.0f) )
 		{
-			float flScale = flDiff / g_fMaxViewModelLag;
+			float flScale = flDiff / viewmodel_lag_max.GetFloat();
 			flSpeed *= flScale;
 		}
 
@@ -493,7 +502,7 @@ void CBaseViewModel::CalcViewModelLag( Vector& origin, QAngle& angles, QAngle& o
 		VectorMA( m_vecLastFacing, flSpeed * gpGlobals->frametime, vDifference, m_vecLastFacing );
 		// Make sure it doesn't grow out of control!!!
 		VectorNormalize( m_vecLastFacing );
-		VectorMA( origin, 5.0f, vDifference * -1.0f, origin );
+		VectorMA( origin, viewmodel_lag_scale.GetFloat(), vDifference * viewmodel_lag_dir.GetFloat(), origin );
 
 		Assert( m_vecLastFacing.IsValid() );
 	}
@@ -507,7 +516,7 @@ void CBaseViewModel::CalcViewModelLag( Vector& origin, QAngle& angles, QAngle& o
 	else if ( pitch < -180.0f )
 		pitch += 360.0f;
 
-	if ( g_fMaxViewModelLag == 0.0f )
+	if ( viewmodel_lag_max.GetFloat() == 0.0f )
 	{
 		origin = vOriginalOrigin;
 		angles = vOriginalAngles;
@@ -517,6 +526,7 @@ void CBaseViewModel::CalcViewModelLag( Vector& origin, QAngle& angles, QAngle& o
 	VectorMA( origin, -pitch * 0.035f,	forward,	origin );
 	VectorMA( origin, -pitch * 0.03f,		right,	origin );
 	VectorMA( origin, -pitch * 0.02f,		up,		origin);
+#endif
 }
 
 //-----------------------------------------------------------------------------
