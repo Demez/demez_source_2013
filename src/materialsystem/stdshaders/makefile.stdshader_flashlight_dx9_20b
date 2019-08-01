@@ -1,0 +1,86 @@
+default:  fxctmp9_tmp\eyes_flashlight_ps20.inc shaders\fxc\eyes_flashlight_ps20.vcs fxctmp9_tmp\eyes_flashlight_ps20b.inc shaders\fxc\eyes_flashlight_ps20b.vcs fxctmp9_tmp\eyes_flashlight_vs20.inc shaders\fxc\eyes_flashlight_vs20.vcs fxctmp9_tmp\flashlight_ps20.inc shaders\fxc\flashlight_ps20.vcs fxctmp9_tmp\flashlight_ps20b.inc shaders\fxc\flashlight_ps20b.vcs fxctmp9_tmp\lightmappedgeneric_flashlight_vs20.inc shaders\fxc\lightmappedgeneric_flashlight_vs20.vcs fxctmp9_tmp\teeth_flashlight_ps20.inc shaders\fxc\teeth_flashlight_ps20.vcs fxctmp9_tmp\teeth_flashlight_ps20b.inc shaders\fxc\teeth_flashlight_ps20b.vcs fxctmp9_tmp\teeth_flashlight_vs20.inc shaders\fxc\teeth_flashlight_vs20.vcs vshtmp9_tmp\vertexlitgeneric_flashlight_vs11.inc shaders\vsh\vertexlitgeneric_flashlight_vs11.vcs fxctmp9_tmp\vertexlitgeneric_flashlight_vs20.inc shaders\fxc\vertexlitgeneric_flashlight_vs20.vcs
+
+fxctmp9_tmp\eyes_flashlight_ps20.inc shaders\fxc\eyes_flashlight_ps20.vcs: eyes_flashlight_ps2x.fxc common_flashlight_fxc.h common_pragmas.h eyes_flashlight_inc.fxc common_vertexlitgeneric_dx9.h common_ps_fxc.h common_fxc.h shader_constant_register_map.h common_hlsl_cpp_consts.h
+	perl ..\..\devtools\bin\fxc_prep.pl   -source "..\.." eyes_flashlight_ps2x.fxc-----eyes_flashlight_ps20
+	echo eyes_flashlight_ps2x.fxc>> filestocopy.txt
+	echo common_flashlight_fxc.h>> filestocopy.txt
+	echo common_pragmas.h>> filestocopy.txt
+	echo eyes_flashlight_inc.fxc>> filestocopy.txt
+	echo common_vertexlitgeneric_dx9.h>> filestocopy.txt
+	echo common_ps_fxc.h>> filestocopy.txt
+	echo common_fxc.h>> filestocopy.txt
+	echo shader_constant_register_map.h>> filestocopy.txt
+	echo common_hlsl_cpp_consts.h>> filestocopy.txt
+
+fxctmp9_tmp\eyes_flashlight_ps20b.inc shaders\fxc\eyes_flashlight_ps20b.vcs: eyes_flashlight_ps2x.fxc common_flashlight_fxc.h common_pragmas.h eyes_flashlight_inc.fxc common_vertexlitgeneric_dx9.h common_ps_fxc.h common_fxc.h shader_constant_register_map.h common_hlsl_cpp_consts.h
+	perl ..\..\devtools\bin\fxc_prep.pl   -source "..\.." eyes_flashlight_ps2x.fxc-----eyes_flashlight_ps20b
+	echo eyes_flashlight_ps2x.fxc>> filestocopy.txt
+	echo common_flashlight_fxc.h>> filestocopy.txt
+	echo common_pragmas.h>> filestocopy.txt
+	echo eyes_flashlight_inc.fxc>> filestocopy.txt
+	echo common_vertexlitgeneric_dx9.h>> filestocopy.txt
+	echo common_ps_fxc.h>> filestocopy.txt
+	echo common_fxc.h>> filestocopy.txt
+	echo shader_constant_register_map.h>> filestocopy.txt
+	echo common_hlsl_cpp_consts.h>> filestocopy.txt
+
+fxctmp9_tmp\eyes_flashlight_vs20.inc shaders\fxc\eyes_flashlight_vs20.vcs: eyes_flashlight_vs20.fxc common_hlsl_cpp_consts.h common_fxc.h common_vs_fxc.h common_pragmas.h
+	perl ..\..\devtools\bin\fxc_prep.pl   -source "..\.." eyes_flashlight_vs20.fxc-----eyes_flashlight_vs20
+	echo eyes_flashlight_vs20.fxc>> filestocopy.txt
+	echo common_hlsl_cpp_consts.h>> filestocopy.txt
+	echo common_fxc.h>> filestocopy.txt
+	echo common_vs_fxc.h>> filestocopy.txt
+	echo common_pragmas.h>> filestocopy.txt
+
+fxctmp9_tmp\flashlight_ps20.inc shaders\fxc\flashlight_ps20.vcs: flashlight_ps2x.fxc 
+	perl ..\..\devtools\bin\fxc_prep.pl   -source "..\.." flashlight_ps2x.fxc-----flashlight_ps20
+	echo flashlight_ps2x.fxc>> filestocopy.txt
+
+fxctmp9_tmp\flashlight_ps20b.inc shaders\fxc\flashlight_ps20b.vcs: flashlight_ps2x.fxc 
+	perl ..\..\devtools\bin\fxc_prep.pl   -source "..\.." flashlight_ps2x.fxc-----flashlight_ps20b
+	echo flashlight_ps2x.fxc>> filestocopy.txt
+
+fxctmp9_tmp\lightmappedgeneric_flashlight_vs20.inc shaders\fxc\lightmappedgeneric_flashlight_vs20.vcs: lightmappedgeneric_flashlight_vs20.fxc common_vs_fxc.h common_pragmas.h common_hlsl_cpp_consts.h common_fxc.h
+	perl ..\..\devtools\bin\fxc_prep.pl   -source "..\.." lightmappedgeneric_flashlight_vs20.fxc-----lightmappedgeneric_flashlight_vs20
+	echo lightmappedgeneric_flashlight_vs20.fxc>> filestocopy.txt
+	echo common_vs_fxc.h>> filestocopy.txt
+	echo common_pragmas.h>> filestocopy.txt
+	echo common_hlsl_cpp_consts.h>> filestocopy.txt
+	echo common_fxc.h>> filestocopy.txt
+
+fxctmp9_tmp\teeth_flashlight_ps20.inc shaders\fxc\teeth_flashlight_ps20.vcs: teeth_flashlight_ps2x.fxc common_pragmas.h common_flashlight_fxc.h common_hlsl_cpp_consts.h shader_constant_register_map.h common_fxc.h common_vertexlitgeneric_dx9.h common_ps_fxc.h
+	perl ..\..\devtools\bin\fxc_prep.pl   -source "..\.." teeth_flashlight_ps2x.fxc-----teeth_flashlight_ps20
+	echo teeth_flashlight_ps2x.fxc>> filestocopy.txt
+	echo common_pragmas.h>> filestocopy.txt
+	echo common_flashlight_fxc.h>> filestocopy.txt
+	echo common_hlsl_cpp_consts.h>> filestocopy.txt
+	echo shader_constant_register_map.h>> filestocopy.txt
+	echo common_fxc.h>> filestocopy.txt
+	echo common_vertexlitgeneric_dx9.h>> filestocopy.txt
+	echo common_ps_fxc.h>> filestocopy.txt
+
+fxctmp9_tmp\teeth_flashlight_ps20b.inc shaders\fxc\teeth_flashlight_ps20b.vcs: teeth_flashlight_ps2x.fxc common_pragmas.h common_flashlight_fxc.h common_hlsl_cpp_consts.h shader_constant_register_map.h common_fxc.h common_vertexlitgeneric_dx9.h common_ps_fxc.h
+	perl ..\..\devtools\bin\fxc_prep.pl   -source "..\.." teeth_flashlight_ps2x.fxc-----teeth_flashlight_ps20b
+	echo teeth_flashlight_ps2x.fxc>> filestocopy.txt
+	echo common_pragmas.h>> filestocopy.txt
+	echo common_flashlight_fxc.h>> filestocopy.txt
+	echo common_hlsl_cpp_consts.h>> filestocopy.txt
+	echo shader_constant_register_map.h>> filestocopy.txt
+	echo common_fxc.h>> filestocopy.txt
+	echo common_vertexlitgeneric_dx9.h>> filestocopy.txt
+	echo common_ps_fxc.h>> filestocopy.txt
+
+fxctmp9_tmp\teeth_flashlight_vs20.inc shaders\fxc\teeth_flashlight_vs20.vcs: teeth_flashlight_vs20.fxc vortwarp_vs20_helper.h
+	perl ..\..\devtools\bin\fxc_prep.pl   -source "..\.." teeth_flashlight_vs20.fxc-----teeth_flashlight_vs20
+	echo teeth_flashlight_vs20.fxc>> filestocopy.txt
+	echo vortwarp_vs20_helper.h>> filestocopy.txt
+
+vshtmp9_tmp\vertexlitgeneric_flashlight_vs11.inc shaders\vsh\vertexlitgeneric_flashlight_vs11.vcs: vertexlitgeneric_flashlight_vs11.vsh macros.vsh
+	perl ..\..\devtools\bin\vsh_prep.pl   -source "..\.." vertexlitgeneric_flashlight_vs11.vsh-----vertexlitgeneric_flashlight_vs11
+	echo vertexlitgeneric_flashlight_vs11.vsh>> filestocopy.txt
+	echo macros.vsh>> filestocopy.txt
+
+fxctmp9_tmp\vertexlitgeneric_flashlight_vs20.inc shaders\fxc\vertexlitgeneric_flashlight_vs20.vcs: vertexlitgeneric_flashlight_vs20.fxc 
+	perl ..\..\devtools\bin\fxc_prep.pl   -source "..\.." vertexlitgeneric_flashlight_vs20.fxc-----vertexlitgeneric_flashlight_vs20
+	echo vertexlitgeneric_flashlight_vs20.fxc>> filestocopy.txt
+

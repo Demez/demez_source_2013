@@ -1,0 +1,55 @@
+# ---------------------------------
+# Visual Studio 
+*.suo
+*.user
+*.sln.docstates
+*.obj
+*.pch
+*.tlog
+*.log
+*.scc
+*.exp
+*.ilk
+*.lastbuildstate
+vc100.pdb
+ipch
+*.sdf
+*.opensdf
+*.idb
+*.vcxproj
+*.filters
+*.dsp
+*.dsw
+*.sln
+
+# ---------------------------------
+# Build products
+*.pdb
+*.dll
+*.lib
+
+*.so
+*.so.dbg
+
+*.dylib
+*.dylib.dSYM/
+
+*.mak
+*.mak.vpc_crc
+*.xcodeproj/
+obj*/
+!devtools/*.mak
+!utils/smdlexp/smdlexp.mak
+
+# ---------------------------------
+# Source products
+*.vpc_crc
+*.sentinel
+*.vcs
+*.tmp
+*.bsp
+config.cfg
+
+
+
+
