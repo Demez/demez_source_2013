@@ -15,7 +15,7 @@ $Project "captioncompiler"
 
 $Project "client"
 {
-	"game\client\_client_episodic.pc"	[$EPISODIC]
+	"game\client\_client_episodic.vpc"	[$EPISODIC]
 	"game\client\_client_hl2mp.vpc"		[$HL2MP]
 }
 
