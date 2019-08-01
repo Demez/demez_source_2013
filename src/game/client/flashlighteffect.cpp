@@ -35,15 +35,15 @@ void r_newflashlightCallback_f( IConVar *pConVar, const char *pOldString, float 
 static ConVar r_newflashlight( "r_newflashlight", "1", FCVAR_CHEAT, "", r_newflashlightCallback_f );
 static ConVar r_swingflashlight( "r_swingflashlight", "1", FCVAR_CHEAT );
 static ConVar r_flashlightlockposition( "r_flashlightlockposition", "0", FCVAR_CHEAT );
-static ConVar r_flashlightfov( "r_flashlightfov", "45.0", FCVAR_CHEAT );
+static ConVar r_flashlightfov( "r_flashlightfov", "90.0", FCVAR_CHEAT );
 static ConVar r_flashlightoffsetx( "r_flashlightoffsetx", "10.0", FCVAR_CHEAT );
 static ConVar r_flashlightoffsety( "r_flashlightoffsety", "-20.0", FCVAR_CHEAT );
 static ConVar r_flashlightoffsetz( "r_flashlightoffsetz", "24.0", FCVAR_CHEAT );
 static ConVar r_flashlightnear( "r_flashlightnear", "4.0", FCVAR_CHEAT );
 static ConVar r_flashlightfar( "r_flashlightfar", "750.0", FCVAR_CHEAT );
 static ConVar r_flashlightconstant( "r_flashlightconstant", "0.0", FCVAR_CHEAT );
-static ConVar r_flashlightlinear( "r_flashlightlinear", "100.0", FCVAR_CHEAT );
-static ConVar r_flashlightquadratic( "r_flashlightquadratic", "0.0", FCVAR_CHEAT );
+static ConVar r_flashlightlinear( "r_flashlightlinear", "0.0", FCVAR_CHEAT );
+static ConVar r_flashlightquadratic( "r_flashlightquadratic", "10000.0", FCVAR_CHEAT );
 static ConVar r_flashlightvisualizetrace( "r_flashlightvisualizetrace", "0", FCVAR_CHEAT );
 static ConVar r_flashlightambient( "r_flashlightambient", "0.0", FCVAR_CHEAT );
 static ConVar r_flashlightshadowatten( "r_flashlightshadowatten", "0.35", FCVAR_CHEAT );
@@ -159,7 +159,7 @@ void CFlashlightEffect::UpdateLightNew(const Vector &vecPos, const Vector &vecFo
 	bool bPlayerOnLadder = ( C_BasePlayer::GetLocalPlayer()->GetMoveType() == MOVETYPE_LADDER );
 
 	const float flEpsilon = 0.1f;			// Offset flashlight position along vecUp
-	const float flDistCutoff = 128.0f;
+	const float flDistCutoff = 0.0f; // 128.0f
 	const float flDistDrag = 0.2;
 
 	CTraceFilterSkipPlayerAndViewModel traceFilter;
