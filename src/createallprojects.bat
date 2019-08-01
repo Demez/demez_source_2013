@@ -1,1 +1,1 @@
-devtools\bin\vpc.exe /episodic /hl2mp +everything /mksln everything.sln
+devtools\bin\vpc.exe /demez_hl2 /hl2mp +everything /mksln everything.sln

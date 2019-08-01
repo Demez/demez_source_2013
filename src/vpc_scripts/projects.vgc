@@ -15,7 +15,7 @@ $Project "captioncompiler"
 
 $Project "client"
 {
-	"game\client\_client_episodic.vpc"	[$EPISODIC]
+	"game\client\_client_demez_hl2.vpc"	[$DEMEZ_HL2]
 	"game\client\_client_hl2mp.vpc"		[$HL2MP]
 }
 
@@ -41,7 +41,7 @@ $Project "height2normal"
 
 $Project "server"
 {
-	"game\server\_server_episodic.vpc"	[$EPISODIC]
+	"game\server\_server_demez_hl2.vpc"	[$DEMEZ_HL2]
 	"game\server\_server_hl2mp.vpc"		[$HL2MP]
 }
 

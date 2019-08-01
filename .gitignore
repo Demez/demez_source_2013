@@ -48,8 +48,12 @@ obj*/
 *.vcs
 *.tmp
 *.bsp
+*.dat
 config.cfg
 
+# ---------------------------------
+# specific paths
+/game/demez_hl2_write
 
 
 

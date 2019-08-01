@@ -1,5 +1,5 @@
 #!/bin/bash
 
 pushd `dirname $0`
-devtools/bin/vpc /episodic /hl2mp +everything /mksln everything
+devtools/bin/vpc /demez_hl2 /hl2mp +everything /mksln everything
 popd
