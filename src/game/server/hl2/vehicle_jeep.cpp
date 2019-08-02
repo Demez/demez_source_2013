@@ -677,7 +677,8 @@ void CPropJeep::Think( void )
 {
 	BaseClass::Think();
 
-	CBasePlayer	*pPlayer = UTIL_GetLocalPlayer();
+	//CBasePlayer	*pPlayer = UTIL_GetLocalPlayer();
+	CBasePlayer	*pPlayer = UTIL_GetNearestPlayer( GetAbsOrigin() );
 
 	if ( m_bEngineLocked )
 	{

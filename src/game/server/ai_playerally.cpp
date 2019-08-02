@@ -368,7 +368,7 @@ void CAI_PlayerAlly::DisplayDeathMessage( void )
 
 	CBaseEntity *pPlayer = AI_GetSinglePlayer();
 
-	if ( pPlayer )	
+	/*if ( pPlayer )	
 	{
 		UTIL_ShowMessage( GetDeathMessageText(), ToBasePlayer( pPlayer ) );
 		ToBasePlayer(pPlayer)->NotifySinglePlayerGameEnding();
@@ -381,7 +381,7 @@ void CAI_PlayerAlly::DisplayDeathMessage( void )
 		pReload->SetRenderColor( 0, 0, 0, 255 );
 
 		g_EventQueue.AddEvent( pReload, "Reload", 1.5f, pReload, pReload );
-	}
+	}*/
 
 	// clear any pending autosavedangerous
 	g_ServerGameDLL.m_fAutoSaveDangerousTime = 0.0f;

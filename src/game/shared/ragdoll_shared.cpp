@@ -871,7 +871,9 @@ void CRagdollLRURetirement::Update( float frametime ) // EPISODIC VERSION
 #ifdef CLIENT_DLL
 	C_BasePlayer *pPlayer = C_BasePlayer::GetLocalPlayer();
 #else
-	CBasePlayer  *pPlayer = UTIL_GetLocalPlayer();
+	// multiplayer workaround, hopefully, it won't break something on multiplayer
+	//CBasePlayer  *pPlayer = UTIL_GetLocalPlayer();
+	CBasePlayer* pPlayer = UTIL_PlayerByIndex( 1 );
 #endif
 
 	if (pPlayer && m_LRU.Count() > iMaxRagdollCount) // find the furthest one algorithm
