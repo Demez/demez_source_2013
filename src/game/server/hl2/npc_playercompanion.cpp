@@ -498,7 +498,7 @@ void CNPC_PlayerCompanion::GatherConditions()
 
 	if ( pPlayer && hl2_episodic.GetBool() && !GetEnemy() && HasCondition( COND_HEAR_PLAYER ) )
 	{
-		Vector los = ( UTIL_GetLocalPlayer()->EyePosition() - EyePosition() );
+		Vector los = ( pPlayer->EyePosition() - EyePosition() );
 		los.z = 0;
 		VectorNormalize( los );
 

@@ -366,9 +366,9 @@ void CAI_PlayerAlly::DisplayDeathMessage( void )
 	if ( npc_ally_deathmessage.GetBool() == 0 )
 		return;
 
-	CBaseEntity *pPlayer = AI_GetSinglePlayer();
+	/*CBaseEntity *pPlayer = AI_GetSinglePlayer();
 
-	/*if ( pPlayer )	
+	if ( pPlayer )	
 	{
 		UTIL_ShowMessage( GetDeathMessageText(), ToBasePlayer( pPlayer ) );
 		ToBasePlayer(pPlayer)->NotifySinglePlayerGameEnding();

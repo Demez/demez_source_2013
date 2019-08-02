@@ -194,6 +194,9 @@ void CPropJeep::Precache( void )
 
 	PrecacheScriptSound( "Jeep.GaussCharge" );
 
+	PrecacheScriptSound( "Airboat_headlight_on" );
+	PrecacheScriptSound( "Airboat_headlight_off" );
+
 	PrecacheModel( GAUSS_BEAM_SPRITE );
 
 	BaseClass::Precache();
@@ -899,6 +902,8 @@ void CPropJeep::FireCannon( void )
 	if ( m_bUnableToFire )
 		return;
 
+	CDisablePredictionFiltering disabler;
+
 	m_flCannonTime = gpGlobals->curtime + 0.2f;
 	m_bCannonCharging = false;
 
@@ -937,6 +942,9 @@ void CPropJeep::FireCannon( void )
 //-----------------------------------------------------------------------------
 void CPropJeep::FireChargedCannon( void )
 {
+	// fix hit effects
+	CDisablePredictionFiltering disabler;
+
 	bool penetrated = false;
 
 	m_bCannonCharging	= false;
@@ -1325,8 +1333,7 @@ void CPropJeep::DriveVehicle( float flFrameTime, CUserCmd *ucmd, int iButtonsDow
 {
 	int iButtons = ucmd->buttons;
 
-	//Adrian: No headlights on Superfly.
-/*	if ( ucmd->impulse == 100 )
+	if ( ucmd->impulse == 100 )
 	{
 		if (HeadlightIsOn())
 		{
@@ -1336,7 +1343,7 @@ void CPropJeep::DriveVehicle( float flFrameTime, CUserCmd *ucmd, int iButtonsDow
 		{
 			HeadlightTurnOn();
 		}
-	}*/
+	}
 		
 	// Only handle the cannon if the vehicle has one
 	if ( m_bHasGun )
@@ -1472,6 +1479,7 @@ void CPropJeep::EnterVehicle( CBaseCombatCharacter *pPassenger )
 //-----------------------------------------------------------------------------
 void CPropJeep::ExitVehicle( int nRole )
 {
+	// maybe use a convar for if they should stay on or not?
 	HeadlightTurnOff();
 
 	BaseClass::ExitVehicle( nRole );
@@ -1729,4 +1737,16 @@ int CJeepFourWheelServerVehicle::GetExitAnimToUse( Vector &vecEyeExitEndpoint, b
 	}
 
 	return BaseClass::GetExitAnimToUse( vecEyeExitEndpoint, bAllPointsBlocked );
+}
+
+void CPropJeep::HeadlightTurnOn( void )
+{
+	EmitSound( "Airboat_headlight_on" );
+	m_bHeadlightIsOn = true;
+}
+
+void CPropJeep::HeadlightTurnOff( void )
+{
+	EmitSound( "Airboat_headlight_off" );
+	m_bHeadlightIsOn = false;
 }

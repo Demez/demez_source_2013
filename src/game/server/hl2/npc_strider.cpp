@@ -652,7 +652,7 @@ void CNPC_Strider::PostNPCInit()
 		RemoveFlag( FL_FLY );
 	}
 
-	m_PlayerFreePass.SetPassTarget( UTIL_PlayerByIndex(1) );
+	m_PlayerFreePass.SetPassTarget( UTIL_GetNearestPlayer(GetAbsOrigin()) );
 	
 	AI_FreePassParams_t freePassParams = 
 	{
@@ -778,7 +778,7 @@ int	CNPC_Strider::DrawDebugTextOverlays()
 			text_offset++;
 		}
 
-		CBaseEntity *pPlayer = UTIL_PlayerByIndex(1);
+		CBaseEntity *pPlayer = UTIL_GetNearestPlayer( GetAbsOrigin() );
 		if ( pPlayer )
 		{
 			if ( GetSenses()->ShouldSeeEntity( pPlayer ) && GetSenses()->CanSeeEntity( pPlayer ) )
@@ -3129,7 +3129,8 @@ int CNPC_Strider::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 			{
 				// See if the person that injured me is an NPC.
 				CAI_BaseNPC *pAttacker = dynamic_cast<CAI_BaseNPC *>( info.GetAttacker() );
-				CBasePlayer *pPlayer = AI_GetSinglePlayer();
+				// DEMEZ FIX AI ATTACK - could be the wrong player
+				CBasePlayer *pPlayer = UTIL_GetNearestPlayer( GetAbsOrigin() );
 
 				if( pAttacker && pAttacker->IsAlive() && pPlayer )
 				{

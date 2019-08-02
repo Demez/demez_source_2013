@@ -1577,15 +1577,18 @@ int CBaseEntity::VPhysicsTakeDamage( const CTakeDamageInfo &info )
 		unsigned short gameFlags = VPhysicsGetObject()->GetGameFlags();
 		if ( gameFlags & FVPHYSICS_PLAYER_HELD )
 		{
-			// if the player is holding the object, use it's real mass (player holding reduced the mass)
-			CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
-			if ( pPlayer )
+			// if a player is holding the object, use it's real mass (player holding reduced the mass)
+			for ( int i = 1; i <= gpGlobals->maxClients; i++ )
 			{
-				float mass = pPlayer->GetHeldObjectMass( VPhysicsGetObject() );
-				if ( mass != 0.0f )
+				CBasePlayer* tempPlayer = UTIL_PlayerByIndex( i );
+				if ( tempPlayer )
 				{
-					float ratio = VPhysicsGetObject()->GetMass() / mass;
-					force *= ratio;
+					float mass = tempPlayer->GetHeldObjectMass( VPhysicsGetObject() );
+					if ( mass != 0.0f )
+					{
+						float ratio = VPhysicsGetObject()->GetMass() / mass;
+						force *= ratio;
+					}
 				}
 			}
 		}

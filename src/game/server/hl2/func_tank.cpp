@@ -1038,6 +1038,9 @@ bool CFuncTank::StartControl( CBaseCombatCharacter *pController )
 		m_hController->GetActiveWeapon()->Holster();
 	}
 
+	if ( pController->IsPlayer() )
+		pController->SetNextAttack( gpGlobals->curtime + 1.0f );
+
 	// Set the controller's position to be the use position.
 	m_vecControllerUsePos = m_hController->GetLocalOrigin();
 
@@ -1081,6 +1084,7 @@ void CFuncTank::StopControl()
 	{
 		CBasePlayer *pPlayer = static_cast<CBasePlayer*>( m_hController.Get() );
 		pPlayer->m_Local.m_iHideHUD &= ~HIDEHUD_WEAPONSELECTION;
+		pPlayer->SwitchToNextBestWeapon( pPlayer->GetActiveWeapon() );//4WH - Information: Restores to a weapon.
 	}
 
 	// Stop thinking.
@@ -1550,7 +1554,7 @@ void CFuncTank::Think( void )
 		}
 
 #ifdef FUNCTANK_AUTOUSE
-		CBasePlayer *pPlayer = UTIL_PlayerByIndex(1);
+		CBasePlayer *pPlayer = UTIL_GetNearestPlayer( GetAbsOrigin() );
 		bool bThinkFast = false;
 
 		if( pPlayer )
@@ -2159,6 +2163,7 @@ void CFuncTank::DoMuzzleFlash( void )
 			CEffectData data;
 			data.m_nAttachmentIndex = m_nBarrelAttachment;
 			data.m_nEntIndex = pAnim->entindex();
+			pAnim->GetAttachment( m_nBarrelAttachment, data.m_vOrigin );
 			
 			// FIXME: Create a custom entry here!
 			DispatchEffect( "ChopperMuzzleFlash", data );
@@ -2170,6 +2175,7 @@ void CFuncTank::DoMuzzleFlash( void )
 			data.m_nAttachmentIndex = m_nBarrelAttachment;
 			data.m_flScale = 1.0f;
 			data.m_fFlags = MUZZLEFLASH_COMBINE;
+			pAnim->GetAttachment( m_nBarrelAttachment, data.m_vOrigin );
 
 			DispatchEffect( "MuzzleFlash", data );
 		}
@@ -2241,16 +2247,8 @@ void CFuncTank::Fire( int bulletCount, const Vector &barrelEnd, const Vector &fo
 
 	if( pAttacker && pAttacker->IsPlayer() )
 	{
-		if ( IsX360() )
-		{
-			UTIL_PlayerByIndex(1)->RumbleEffect( RUMBLE_AR2, 0, RUMBLE_FLAG_RESTART | RUMBLE_FLAG_RANDOM_AMPLITUDE );
-		}
-		else
-		{
-			CSoundEnt::InsertSound( SOUND_MOVE_AWAY, barrelEnd + forward * 32.0f, 32.0f, 0.2f, pAttacker, SOUNDENT_CHANNEL_WEAPON );
-		}
+		CSoundEnt::InsertSound( SOUND_MOVE_AWAY, barrelEnd + forward * 32.0f, 32.0f, 0.2f, pAttacker, SOUNDENT_CHANNEL_WEAPON );
 	}
-
 
 	m_OnFire.FireOutput(this, this);
 	m_bReadyToFire = false;
@@ -2437,6 +2435,9 @@ LINK_ENTITY_TO_CLASS( func_tank, CFuncTankGun );
 //-----------------------------------------------------------------------------
 void CFuncTankGun::Fire( int bulletCount, const Vector &barrelEnd, const Vector &forward, CBaseEntity *pAttacker, bool bIgnoreSpread )
 {
+	// This is required so that tracers show up for mounted guns.
+	IPredictionSystem::SuppressHostEvents( NULL );
+
 	int i;
 
 	FireBulletsInfo_t info;
@@ -2459,16 +2460,6 @@ void CFuncTankGun::Fire( int bulletCount, const Vector &barrelEnd, const Vector 
 	info.m_pAttacker = pAttacker;
 	info.m_pAdditionalIgnoreEnt = GetParent();
 
-#ifdef HL2_EPISODIC
-	if ( m_iAmmoType != -1 )
-	{
-		for ( i = 0; i < bulletCount; i++ )
-		{
-			info.m_iAmmoType = m_iAmmoType;
-			FireBullets( info );
-		}
-	}
-#else
 	for ( i = 0; i < bulletCount; i++ )
 	{
 		switch( m_bulletType )
@@ -2490,10 +2481,12 @@ void CFuncTankGun::Fire( int bulletCount, const Vector &barrelEnd, const Vector 
 
 		default:
 		case TANK_BULLET_NONE:
+			// Since only guns without a tank_bullet setting will be episodic (and non-player controllable anyway), here we tell the code to use the episode 2 ammo code.
+			info.m_iAmmoType = m_iAmmoType;
+			FireBullets( info );
 			break;
 		}
 	}
-#endif // HL2_EPISODIC
 
 	CFuncTank::Fire( bulletCount, barrelEnd, forward, pAttacker, bIgnoreSpread );
 }
@@ -2963,6 +2956,7 @@ void CFuncTankAirboatGun::DoMuzzleFlash( void )
 		data.m_nEntIndex = m_hAirboatGunModel->entindex();
 		data.m_nAttachmentIndex = m_nGunBarrelAttachment;
 		data.m_flScale = 1.0f;
+		m_hAirboatGunModel->GetAttachment( m_nGunBarrelAttachment, data.m_vOrigin );
 		DispatchEffect( "AirboatMuzzleFlash", data );
 	}
 }
@@ -3482,7 +3476,7 @@ enum
 
 void UTIL_VisualizeCurve( int type, int steps, float bias )
 {
-	CBasePlayer *pPlayer = UTIL_PlayerByIndex( 1 );
+	CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
 	Vector vForward, vRight, vUp;
 	
 	pPlayer->EyeVectors( &vForward, &vRight, &vUp );
@@ -4217,6 +4211,7 @@ void CFuncTankCombineCannon::FuncTankPostThink()
 			Vector vecTargetPosition = GetTargetPosition();
 			CBasePlayer *pPlayer = UTIL_GetNearestVisiblePlayer( this );
 
+			// Fix null pointers on ep2_outland_09.
 			if ( pPlayer == NULL )
 			{
 				CreateBeam();
@@ -4231,15 +4226,27 @@ void CFuncTankCombineCannon::FuncTankPostThink()
 
 			if( flDot >= 0.9f && m_bShouldHarrass )
 			{
+				// Harrassing doesn't appear to work for hl2mp, so we hack this to work.
+				// Basically we dont put any code here for harrass and instead place it in the else below.
 				//Msg("%s Harrassing player\n", GetDebugName() );
-				vecTargetPosition = pPlayer->EyePosition();
-				bHarass = true;
+				//vecTargetPosition = pPlayer->EyePosition();
+				//bHarass = true;
 			}
 			else
 			{
+				// If a player isnt in sight, the code runs as normal shooting enemies.
+				// If a player comes in sight, then the guns start attacking them till they manage to hide.
+
 				//Msg( "%s Bored\n", GetDebugName() );
 				// Just point off in the distance, more or less directly ahead of me.
-				vecTargetPosition = GetAbsOrigin() + m_vecTrueForward * 1900.0f;
+				m_hBeam->SetColor( 0, 0, 0 );
+				vecTargetPosition = pPlayer->EyePosition();
+				Vector vecForwardCurrent = vecToPlayer;
+				Vector vecBarrelCurrentEnd = WorldBarrelPosition(); // +1.0f;
+				BaseClass::Fire( 1, vecBarrelCurrentEnd, vecForwardCurrent, pPlayer, false );
+				//m_flTimeBeamOn = gpGlobals->curtime + 0.2f;
+				//m_flTimeNextSweep = gpGlobals->curtime + random->RandomInt( 2.0f, 4.0f ); //When "harrassing" make sure we have a longer random wait time before the next shot. Otherwise things get quite hairy for players!
+				bHarass = true;
 			}
 
 			int i;

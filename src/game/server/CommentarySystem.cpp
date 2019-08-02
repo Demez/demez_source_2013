@@ -224,7 +224,7 @@ LINK_ENTITY_TO_CLASS( point_commentary_viewpoint, CCommentaryViewPosition );
 //-----------------------------------------------------------------------------
 CBasePlayer *GetCommentaryPlayer( void )
 {
-	CBasePlayer *pPlayer;
+	/*CBasePlayer *pPlayer;
 
 	if ( gpGlobals->maxClients <= 1 )
 	{
@@ -236,7 +236,9 @@ CBasePlayer *GetCommentaryPlayer( void )
 		pPlayer = UTIL_PlayerByIndex(1);
 	}
 
-	return pPlayer;
+	return pPlayer;*/
+
+	return UTIL_GetLocalPlayer();
 }
 
 //===========================================================================================================

@@ -474,12 +474,11 @@ void CAI_ScriptConditions::EvaluationThink()
 	int iActorsDone = 0;
 
 #ifdef HL2_DLL
-	if( ( gpGlobals->maxClients == 1 ) && AI_GetSinglePlayer()->GetFlags() & FL_NOTARGET )
+	if( AI_GetSinglePlayer()->GetFlags() & FL_NOTARGET )
 	{
 		ScrCondDbgMsg( ("%s WARNING: Player is NOTARGET. This will affect all LOS conditiosn involving the player!\n", GetDebugName()) );
 	}
 #endif
-
 
 	for ( int i = 0; i < m_ElementList.Count(); )
 	{
@@ -735,6 +734,11 @@ bool CAI_ScriptConditions::IsInFOV( CBaseEntity *pViewer, CBaseEntity *pViewed, 
 
 bool CAI_ScriptConditions::PlayerHasLineOfSight( CBaseEntity *pViewer, CBaseEntity *pViewed, bool fNot )
 {
+ 	if ( pViewer == NULL )
+	{
+		return false;
+	}
+
 	CBaseCombatCharacter *pCombatantViewer = pViewer->MyCombatCharacterPointer();
 
 	if( pCombatantViewer )

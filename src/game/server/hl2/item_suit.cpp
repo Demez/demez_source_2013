@@ -39,10 +39,12 @@ public:
 	{
 		PrecacheModel ("models/items/hevsuit.mdl");
 	}
-	bool MyTouch( CBasePlayer *pPlayer )
+	bool MyTouch( CBasePlayer* pPlayer )
 	{
-		if ( pPlayer->IsSuitEquipped() )
+		if ( gpGlobals->maxClients == 1 && pPlayer->IsSuitEquipped() )
+		{
 			return FALSE;
+		}
 
 		if ( m_spawnflags & SF_SUIT_SHORTLOGON )
 			UTIL_EmitSoundSuit(pPlayer->edict(), "!HEV_A0");		// short version of suit logon,

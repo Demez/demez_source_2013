@@ -24,7 +24,8 @@ void Pickup_ForcePlayerToDropThisObject( CBaseEntity *pTarget )
 
 	if ( pPhysics->GetGameFlags() & FVPHYSICS_PLAYER_HELD )
 	{
-		CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
+		// DEMEZ FIX SPECIFIC PLAYER
+		CBasePlayer *pPlayer = UTIL_GetNearestPlayer( pTarget->GetAbsOrigin() );
 		pPlayer->ForceDropOfCarriedPhysObjects( pTarget );
 	}
 }

@@ -3058,9 +3058,12 @@ void CTriggerCamera::Enable( void )
 
 		if ( pPlayer == NULL )
 		{
+			// maybe no more players?
+			continue;
+
 			//Must be a Local Server Host if we get here (i think).
 			Assert( m_hPlayer->IsPlayer() );
-			pPlayer = ( ( CBasePlayer* ) m_hPlayer.Get() );
+			// pPlayer = ( ( CBasePlayer* ) m_hPlayer.Get() );
 		}
 
 		m_hPlayer = pPlayer;
