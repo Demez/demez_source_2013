@@ -8,7 +8,10 @@
 #include "c_ai_basenpc.h"
 #include "engine/ivdebugoverlay.h"
 
-#if defined( HL2_DLL ) || defined( HL2_EPISODIC )
+// TODO: remove this junk from the base client file
+#if defined( DEMEZ_HL2 )
+#include "c_demez_hl2_player.h"
+#elif defined( HL2_DLL ) || defined( HL2_EPISODIC )
 #include "c_basehlplayer.h"
 #endif
 
@@ -102,7 +105,7 @@ void C_AI_BaseNPC::ClientThink( void )
 	}
 #endif // HL2_DLL
 
-#ifdef HL2_EPISODIC
+#if defined( HL2_EPISODIC ) || defined( DEMEZ_HL2 )
 	C_BaseHLPlayer *pPlayer = dynamic_cast<C_BaseHLPlayer*>( C_BasePlayer::GetLocalPlayer() );
 
 	if ( pPlayer && m_flTimePingEffect > gpGlobals->curtime )

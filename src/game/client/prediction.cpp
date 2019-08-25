@@ -21,7 +21,10 @@
 #include "hud_pdump.h"
 #include "datacache/imdlcache.h"
 
-#ifdef HL2_CLIENT_DLL
+// ew
+#ifdef DEMEZ_HL2
+#include "c_demez_hl2_player.h"
+#elif HL2_CLIENT_DLL
 #include "c_basehlplayer.h"
 #endif
 

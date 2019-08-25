@@ -1,131 +1,180 @@
-//-----------------------------------------------------------------------------
-//	CLIENT_EPISODIC.VPC
-//
-//	Project Script
-//-----------------------------------------------------------------------------
-
 $Macro SRCDIR		"..\.."
 $Macro GAMENAME 	"demez_hl2"
 
 $Include "$SRCDIR\game\client\_client_base.vpc"
+$Include "$SRCDIR\game\shared\_shared_demez_hl2.vpc"
 
 $Configuration
 {
 	$Compiler
 	{
-		$AdditionalIncludeDirectories	".\hl2;.\hl2\elements;$SRCDIR\game\shared\hl2;$SRCDIR\game\shared\episodic;..\..\public;$BASE"
-		$PreprocessorDefinitions		"$BASE;HL2_CLIENT_DLL;HL2_EPISODIC"
+		$AdditionalIncludeDirectories	"$BASE;.\demez_hl2;.\demez_hl2\hl2;.\demez_hl2\mp"
+		$PreprocessorDefinitions		"$BASE;HL2_CLIENT_DLL"
 	}
 }
 
 $Project "Client (Demez HL2)"
 {
-	$Folder	"Source Files"
+	$Folder	"Base"
 	{
-		$File	"hud_chat.cpp"
-		$File	"c_team_objectiveresource.cpp"
-		$File	"c_team_objectiveresource.h"
-
-		$Folder	"HL2 DLL"
+		$File	"c_team_objectiveresource.cpp"	"c_team_objectiveresource.h" 
+		$File	"c_team_train_watcher.cpp"		"c_team_train_watcher.h"
+		
+		$Folder	"HUD"
 		{
-			$File	"$SRCDIR\game\shared\hl2\basehlcombatweapon_shared.cpp"
-			$File	"$SRCDIR\game\shared\episodic\achievements_ep1.cpp"
-			$File	"$SRCDIR\game\shared\episodic\achievements_ep2.cpp"
-			$File	"$SRCDIR\game\shared\episodic\achievements_epx.cpp"
-			$File	"hl2\c_antlion_dust.cpp"
-			$File	"hl2\c_ar2_explosion.cpp"
-			$File	"hl2\c_barnacle.cpp"
-			$File	"hl2\c_barney.cpp"
-			$File	"hl2\c_basehelicopter.cpp"
-			$File	"hl2\c_basehelicopter.h"
-			$File	"hl2\c_basehlcombatweapon.cpp"
-			$File	"hl2\c_basehlcombatweapon.h"
-			$File	"hl2\c_basehlplayer.cpp"
-			$File	"hl2\c_basehlplayer.h"
-			$File	"hl2\c_citadel_effects.cpp"
-			$File	"hl2\c_corpse.cpp"
-			$File	"hl2\c_corpse.h"
-			$File	"hl2\c_env_alyxtemp.cpp"
-			$File	"hl2\c_env_headcrabcanister.cpp"
-			$File	"hl2\c_env_starfield.cpp"
-			$File	"hl2\c_func_tankmortar.cpp"
-			$File	"hl2\c_hl2_playerlocaldata.cpp"
-			$File	"hl2\c_hl2_playerlocaldata.h"
-			$File	"hl2\c_info_teleporter_countdown.cpp"
-			$File	"hl2\c_npc_antlionguard.cpp"
-			$File	"hl2\c_npc_combinegunship.cpp"
-			$File	"hl2\c_npc_manhack.cpp"
-			$File	"hl2\c_npc_rollermine.cpp"
-			$File	"hl2\c_plasma_beam_node.cpp"
-			$File	"hl2\c_prop_combine_ball.cpp"
-			$File	"hl2\c_prop_combine_ball.h"
-			$File	"episodic\c_prop_scalable.cpp"
-			$File	"hl2\c_rotorwash.cpp"
-			$File	"hl2\c_script_intro.cpp"
-			$File	"$SRCDIR\game\shared\script_intro_shared.cpp"
-			$File	"hl2\c_strider.cpp"
-			$File	"hl2\c_te_concussiveexplosion.cpp"
-			$File	"hl2\c_te_flare.cpp"
-			$File	"hl2\c_thumper_dust.cpp"
-			$File	"hl2\c_vehicle_airboat.cpp"
-			$File	"hl2\c_vehicle_cannon.cpp"
-			$File	"hl2\c_vehicle_crane.cpp"
-			$File	"hl2\c_vehicle_crane.h"
-			$File	"episodic\c_vehicle_jeep_episodic.cpp"
-			$File	"hl2\c_vehicle_prisoner_pod.cpp"
-			$File	"episodic\c_vort_charge_token.cpp"
-			$File	"hl2\c_weapon__stubs_hl2.cpp"
-			$File	"hl2\c_weapon_crossbow.cpp"
-			$File	"episodic\c_weapon_hopwire.cpp"
-			$File	"hl2\c_weapon_physcannon.cpp"
-			$File	"hl2\c_weapon_stunstick.cpp"
-			$File	"$SRCDIR\game\shared\hl2\citadel_effects_shared.h"
-			$File	"hl2\clientmode_hlnormal.cpp"
-			$File	"hl2\clientmode_hlnormal.h"
-			$File	"death.cpp"
-			$File	"$SRCDIR\game\shared\hl2\env_headcrabcanister_shared.cpp"
-			$File	"$SRCDIR\game\shared\hl2\env_headcrabcanister_shared.h"
-			$File	"$SRCDIR\game\shared\episodic\npc_advisor_shared.h"
-			$File	"episodic\c_npc_advisor.cpp"
-			$File	"episodic\episodic_screenspaceeffects.cpp"
-			$File	"episodic\episodic_screenspaceeffects.h"
-			$File	"episodic\flesh_internal_material_proxy.cpp"
-			$File	"hl2\fx_antlion.cpp"
-			$File	"hl2\fx_bugbait.cpp"
-			$File	"hl2\fx_hl2_impacts.cpp"
-			$File	"hl2\fx_hl2_tracers.cpp"
-			$File	"hl2\hl2_clientmode.cpp"
-			$File	"$SRCDIR\game\shared\hl2\hl2_gamerules.cpp"
-			$File	"$SRCDIR\game\shared\hl2\hl2_gamerules.h"
-			$File	"$SRCDIR\game\shared\hl2\hl2_shareddefs.h"
-			$File	"$SRCDIR\game\shared\hl2\hl2_usermessages.cpp"
-			$File	"$SRCDIR\game\shared\hl2\hl_gamemovement.cpp"
-			$File	"$SRCDIR\game\shared\hl2\hl_gamemovement.h"
-			$File	"hl2\hl_in_main.cpp"
-			$File	"hl2\hl_prediction.cpp"
-			$File	"hl2\hud_ammo.cpp"
-			$File	"hl2\hud_battery.cpp"
-			$File	"hl2\hud_blood.cpp"
-			$File	"hl2\hud_credits.cpp"
-			$File	"hl2\hud_damageindicator.cpp"
-			$File	"hl2\hud_flashlight.cpp"
-			$File	"hl2\hud_locator.cpp"
-			$File	"hl2\hud_health.cpp"
-			$File	"hl2\hud_poisondamageindicator.cpp"			
 			$File	"hud_posture.cpp"
-			$File	"hl2\hud_quickinfo.cpp"
-			$File	"hl2\hud_radar.cpp"
-			$File	"hl2\hud_radar.h"
-			$File	"hud_squadstatus.cpp"
-			$File	"hl2\hud_suitpower.cpp"
-			$File	"hl2\hud_suitpower.h"
-			$File	"hl2\hud_weaponselection.cpp"
-			$File	"hl2\hud_zoom.cpp"
-			$File	"hl2\shieldproxy.cpp"
-			$File	"$SRCDIR\game\shared\hl2\survival_gamerules.cpp"
-			$File	"hl2\vgui_rootpanel_hl2.cpp"
-			$File	"episodic\c_npc_puppet.cpp"
+		}
+		
+		// removing files because we change them
+		$Folder	"Source Files"
+		{
+			-$File	"flashlighteffect.cpp"
+		}
+		
+		$Folder	"Header Files"
+		{
+			-$File	"flashlighteffect.h"
 		}
 	}
 	
+	$Folder	"Demez HL2"
+	{
+		$Folder	"NPCs"
+		{
+			$File	"demez_hl2/hl2/c_barnacle.cpp"
+			$File	"demez_hl2/hl2/c_barney.cpp"
+			$File	"demez_hl2/hl2/c_basehelicopter.cpp"
+			$File	"demez_hl2/hl2/c_basehelicopter.h"
+			$File	"demez_hl2/hl2/c_npc_antlionguard.cpp"
+			$File	"demez_hl2/hl2/c_npc_combinegunship.cpp"
+			$File	"demez_hl2/hl2/c_npc_manhack.cpp"
+			$File	"demez_hl2/hl2/c_npc_rollermine.cpp"
+			$File	"demez_hl2/hl2/c_npc_advisor.cpp"
+			$File	"demez_hl2/hl2/c_strider.cpp"
+			$File	"demez_hl2/hl2/c_npc_puppet.cpp"
+			$File	"demez_hl2/hl2/c_env_alyxtemp.cpp"
+			$File	"demez_hl2/hl2/c_prop_combine_ball.cpp"
+			$File	"demez_hl2/hl2/c_prop_combine_ball.h"
+		}
+		
+		$Folder	"Vehicles"
+		{
+			$File	"demez_hl2/hl2/c_vehicle_airboat.cpp"
+			$File	"demez_hl2/hl2/c_vehicle_cannon.cpp"
+			$File	"demez_hl2/hl2/c_vehicle_crane.cpp"
+			$File	"demez_hl2/hl2/c_vehicle_crane.h"
+			$File	"demez_hl2/hl2/c_vehicle_jeep_episodic.cpp"
+			$File	"demez_hl2/hl2/c_vehicle_prisoner_pod.cpp"
+		}
+		
+		$Folder	"Weapons"
+		{
+			$File	"demez_hl2/hl2/c_basehlcombatweapon.cpp"
+			$File	"demez_hl2/hl2/c_basehlcombatweapon.h"
+			$File	"demez_hl2/hl2/c_weapon__stubs_hl2.cpp"
+			$File	"demez_hl2/hl2/c_weapon_crossbow.cpp"
+			$File	"demez_hl2/hl2/c_weapon_hopwire.cpp"
+			$File	"demez_hl2/hl2/c_ar2_explosion.cpp"
+		}
+		
+		$Folder	"HUD"
+		{
+			$File	"demez_hl2/hl2/hud_ammo.cpp"
+			$File	"demez_hl2/hl2/hud_battery.cpp"
+			$File	"demez_hl2/hl2/hud_blood.cpp"
+			$File	"demez_hl2/hl2/hud_credits.cpp"
+			$File	"demez_hl2/hl2/hud_damageindicator.cpp"
+			$File	"demez_hl2/hl2/hud_flashlight.cpp"
+			$File	"demez_hl2/hl2/hud_locator.cpp"
+			$File	"demez_hl2/hl2/hud_health.cpp"
+			$File	"demez_hl2/hl2/hud_poisondamageindicator.cpp"
+			$File	"demez_hl2/hl2/hud_quickinfo.cpp"
+			$File	"demez_hl2/hl2/hud_radar.cpp"
+			$File	"demez_hl2/hl2/hud_radar.h"
+			$File	"demez_hl2/hl2/hud_suitpower.cpp"
+			$File	"demez_hl2/hl2/hud_suitpower.h"
+			$File	"demez_hl2/hl2/hud_squadstatus.cpp"
+			$File	"demez_hl2/hl2/hud_weaponselection.cpp"
+			$File	"demez_hl2/hl2/hud_zoom.cpp"
+			$File	"demez_hl2/hl2/vgui_rootpanel_hl2.cpp"
+		}
+		
+		$Folder	"Player"
+		{
+			$File	"demez_hl2/hl2/c_demez_hl2_player.cpp"
+			$File	"demez_hl2/hl2/c_demez_hl2_player.h"
+			$File	"demez_hl2/hl2/c_hl2_playerlocaldata.cpp"
+			$File	"demez_hl2/hl2/c_hl2_playerlocaldata.h"
+			$File	"demez_hl2/hl2/hl2_clientmode.cpp"
+			//$File	"demez_hl2/hl2/clientmode_hlnormal.cpp"
+			//$File	"demez_hl2/hl2/clientmode_hlnormal.h"
+			
+			$File	"demez_hl2/flashlight.cpp"
+			$File	"demez_hl2/flashlight.h"
+			$File	"demez_hl2/headlight.cpp"
+			$File	"demez_hl2/headlight.h"
+		}
+		
+		$Folder	"Unsorted"
+		{
+			$File	"demez_hl2/hl2/c_antlion_dust.cpp"
+			$File	"demez_hl2/hl2/c_citadel_effects.cpp"
+			$File	"demez_hl2/hl2/c_corpse.cpp"
+			$File	"demez_hl2/hl2/c_corpse.h"
+			$File	"demez_hl2/hl2/c_env_headcrabcanister.cpp"
+			$File	"demez_hl2/hl2/c_env_starfield.cpp"
+			$File	"demez_hl2/hl2/c_func_tankmortar.cpp"
+			$File	"demez_hl2/hl2/c_info_teleporter_countdown.cpp"
+			$File	"demez_hl2/hl2/c_plasma_beam_node.cpp"
+			$File	"demez_hl2/hl2/c_prop_scalable.cpp"
+			$File	"demez_hl2/hl2/c_rotorwash.cpp"
+			$File	"demez_hl2/hl2/c_script_intro.cpp"
+			$File	"demez_hl2/hl2/c_te_concussiveexplosion.cpp"
+			$File	"demez_hl2/hl2/c_te_flare.cpp"
+			$File	"demez_hl2/hl2/c_thumper_dust.cpp"
+			$File	"demez_hl2/hl2/c_vort_charge_token.cpp"
+			$File	"demez_hl2/hl2/episodic_screenspaceeffects.cpp"
+			$File	"demez_hl2/hl2/episodic_screenspaceeffects.h"
+			$File	"demez_hl2/hl2/flesh_internal_material_proxy.cpp"
+			$File	"demez_hl2/hl2/fx_antlion.cpp"
+			$File	"demez_hl2/hl2/fx_bugbait.cpp"
+			$File	"demez_hl2/hl2/fx_hl2_impacts.cpp"
+			$File	"demez_hl2/hl2/fx_hl2_tracers.cpp"
+			$File	"demez_hl2/hl2/hl_in_main.cpp"
+			$File	"demez_hl2/hl2/hl_prediction.cpp"
+			$File	"demez_hl2/hl2/shieldproxy.cpp"
+			
+			$File	"demez_hl2/hl2/c_waterbullet.cpp"
+			$File	"demez_hl2/hl2/hud_autoaim.cpp"
+			$File	"demez_hl2/hl2/hud_filmdemo.cpp"
+			$File	"demez_hl2/hl2/hud_hdrdemo.cpp"
+			$File	"demez_hl2/hl2/C_Func_Monitor.cpp"
+		}
+		
+		$Folder	"HL2MP TEST"
+		{
+			$File	"demez_hl2/mp/c_hl2mp_player.cpp"
+			$File	"demez_hl2/mp/c_hl2mp_player.h"
+			$File	"demez_hl2/mp/c_te_hl2mp_shotgun_shot.cpp"
+			$File	"demez_hl2/mp/clientmode_hl2mpnormal.cpp"
+			$File	"demez_hl2/mp/clientmode_hl2mpnormal.h"
+
+			$Folder	"UI"
+			{
+				$File	"demez_hl2/mp/ui/backgroundpanel.cpp"
+				$File	"demez_hl2/mp/ui/backgroundpanel.h"
+				$File	"demez_hl2/mp/ui/hl2mpclientscoreboard.cpp"
+				$File	"demez_hl2/mp/ui/hl2mpclientscoreboard.h"
+				$File	"demez_hl2/mp/ui/hl2mptextwindow.cpp"
+				$File	"demez_hl2/mp/ui/hl2mptextwindow.h"
+				
+				$File	"demez_hl2/mp/hud_deathnotice.cpp"
+				$File	"demez_hl2/mp/hl2mp_hud_chat.cpp"
+				$File	"demez_hl2/mp/hl2mp_hud_chat.h"
+				$File	"demez_hl2/mp/hl2mp_hud_target_id.cpp"
+				$File	"demez_hl2/mp/hl2mp_hud_team.cpp"
+			}
+		}
+	}
 }
+

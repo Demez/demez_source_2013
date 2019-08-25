@@ -7,7 +7,10 @@
 #include "cbase.h"
 #include "env_zoom.h"
 
-#ifdef HL2_DLL
+// TODO: remove this junk from the base client file
+#if defined( DEMEZ_HL2 )
+#include "demez_hl2_player.h"
+#elif defined( HL2MP ) || defined( HL2_DLL )
 #include "hl2_player.h"
 #endif
 

@@ -25,7 +25,7 @@
 
 #ifdef HL2_DLL
 #include "ai_interactions.h"
-#include "hl2_gamerules.h"
+#include "hl2mp_gamerules.h"
 #endif // HL2_DLL
 
 #include "ai_network.h"
@@ -70,11 +70,18 @@
 #include "checksum_crc.h"
 #include "iservervehicle.h"
 #include "filters.h"
+
 #ifdef HL2_DLL
-#include "npc_bullseye.h"
-#include "hl2_player.h"
-#include "weapon_physcannon.h"
+	#include "npc_bullseye.h"
+	// TODO: remove this junk from the base client file
+	#if defined( DEMEZ_HL2 )
+		#include "demez_hl2_player.h"
+	#elif defined( HL2MP )
+		#include "hl2_player.h"
+	#endif
+	#include "weapon_physcannon.h"
 #endif
+
 #include "waterbullet.h"
 #include "in_buttons.h"
 #include "eventlist.h"
@@ -13970,7 +13977,7 @@ void CAI_BaseNPC::PlayerHasIlluminatedNPC( CBasePlayer *pPlayer, float flDot )
 		if ( pInteraction->iLoopBreakTriggerMethod & SNPCINT_LOOPBREAK_ON_FLASHLIGHT_ILLUM )
 		{
 			// Only do this in alyx darkness mode
-			if ( HL2GameRules()->IsAlyxInDarknessMode() )
+			if ( HL2MPRules()->IsAlyxInDarknessMode() )
 			{
 				// Can only break when we're in the action anim
 				if ( m_hCine->IsPlayingAction() )

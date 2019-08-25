@@ -67,21 +67,13 @@ void ToolFramework_AdjustEngineViewport( int& x, int& y, int& width, int& height
 bool ToolFramework_SetupEngineView( Vector &origin, QAngle &angles, float &fov );
 bool ToolFramework_SetupEngineMicrophone( Vector &origin, QAngle &angles );
 
+ConVar default_fov( "default_fov", "90", FCVAR_CHEAT );
+extern ConVar sensitivity;
 
-extern ConVar default_fov;
 extern bool g_bRenderingScreenshot;
 
-#if !defined( _X360 )
 #define SAVEGAME_SCREENSHOT_WIDTH	180
 #define SAVEGAME_SCREENSHOT_HEIGHT	100
-#else
-#define SAVEGAME_SCREENSHOT_WIDTH	128
-#define SAVEGAME_SCREENSHOT_HEIGHT	128
-#endif
-
-#ifndef _XBOX
-extern ConVar sensitivity;
-#endif
 
 ConVar zoom_sensitivity_ratio( "zoom_sensitivity_ratio", "1.0", 0, "Additional mouse sensitivity scale factor applied when FOV is zoomed in." );
 
@@ -107,13 +99,10 @@ extern ConVar cl_forwardspeed;
 static ConVar v_centermove( "v_centermove", "0.15");
 static ConVar v_centerspeed( "v_centerspeed","500" );
 
-#ifdef TF_CLIENT_DLL
 // 54 degrees approximates a 35mm camera - we determined that this makes the viewmodels
 // and motions look the most natural.
 ConVar v_viewmodel_fov( "viewmodel_fov", "54", FCVAR_ARCHIVE, "Sets the field-of-view for the viewmodel.", true, 0.1, true, 179.9 );
-#else
-ConVar v_viewmodel_fov( "viewmodel_fov", "54", FCVAR_CHEAT, "Sets the field-of-view for the viewmodel.", true, 0.1, true, 179.9 );
-#endif
+
 ConVar mat_viewportscale( "mat_viewportscale", "1.0", FCVAR_ARCHIVE, "Scale down the main viewport (to reduce GPU impact on CPU profiling)", true, (1.0f / 640.0f), true, 1.0f );
 ConVar mat_viewportupscale( "mat_viewportupscale", "1", FCVAR_ARCHIVE, "Scale the viewport back up" );
 ConVar cl_leveloverview( "cl_leveloverview", "0", FCVAR_CHEAT );
@@ -281,10 +270,6 @@ static void StartPitchDrift( void )
 }
 
 static ConCommand centerview( "centerview", StartPitchDrift );
-
-extern ConVar default_fov;
-
-
 
 //-----------------------------------------------------------------------------
 // Purpose: Initializes all view systems
@@ -516,7 +501,7 @@ void CViewRender::OnRenderStart()
 	C_BasePlayer *player = C_BasePlayer::GetLocalPlayer();
 	if ( player )
 	{
-		default_fov.SetValue( player->m_iDefaultFOV );
+		//fov_desired.SetValue( player->m_iDefaultFOV );
 
 		//Update our FOV, including any zooms going on
 		int iDefaultFOV = default_fov.GetInt();

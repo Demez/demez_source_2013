@@ -35,8 +35,11 @@
 #include "../common/xbox/xboxstubs.h"
 #endif
 
-#ifdef HL2_CLIENT_DLL
+// ew
 // FIXME: Autoaim support needs to be moved from HL2_DLL to the client dll, so this include should be c_baseplayer.h
+#ifdef DEMEZ_HL2
+#include "c_demez_hl2_player.h"
+#elif HL2_CLIENT_DLL
 #include "c_basehlplayer.h"
 #endif
 

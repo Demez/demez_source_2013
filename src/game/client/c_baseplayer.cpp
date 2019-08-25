@@ -7,7 +7,6 @@
 //===========================================================================//
 #include "cbase.h"
 #include "c_baseplayer.h"
-#include "flashlighteffect.h"
 #include "weapon_selection.h"
 #include "history_resource.h"
 #include "iinput.h"
@@ -49,6 +48,13 @@
 #include "steam/steam_api.h"
 #include "sourcevr/isourcevirtualreality.h"
 #include "client_virtualreality.h"
+
+// TODO: remove this junk from the base client file
+#if defined( DEMEZ_HL2 )
+#include "demez_hl2/flashlight.h"
+#elif defined( HL2MP ) || defined( HL2_DLL )
+#include "flashlighteffect.h"
+#endif
 
 #if defined USES_ECON_ITEMS
 #include "econ_wearable.h"
@@ -1239,7 +1245,11 @@ void C_BasePlayer::UpdateFlashlight()
 		EyeVectors( &vecForward, &vecRight, &vecUp );
 
 		// Update the light with the new position and direction.		
-		m_pFlashlight->UpdateLight( EyePosition(), vecForward, vecRight, vecUp, FLASHLIGHT_DISTANCE );
+		m_pFlashlight->UpdateLight( EyePosition(), vecForward, vecRight, vecUp
+#ifndef DEMEZ_HL2
+			, FLASHLIGHT_DISTANCE
+#endif
+		);
 	}
 	else if (m_pFlashlight)
 	{

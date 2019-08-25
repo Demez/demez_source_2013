@@ -21,8 +21,11 @@
 #include "env_player_surface_trigger.h"
 #include "rumble_shared.h"
 
-#ifdef HL2_DLL
-	#include "hl2_player.h"
+// TODO: remove this junk from the base client file
+#if defined( DEMEZ_HL2 )
+#include "demez_hl2_player.h"
+#elif defined( HL2MP ) || defined( HL2_DLL )
+#include "hl2_player.h"
 #endif
 
 // memdbgon must be the last include file in a .cpp file!!!

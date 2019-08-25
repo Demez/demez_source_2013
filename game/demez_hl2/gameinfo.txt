@@ -4,7 +4,8 @@
 	title 		"fuck"
 	supportsvr	0	// temp for now so steamvr can die
 	
-	type		singleplayer_only
+	//type		singleplayer_only
+	type		multiplayer
 	
 	FileSystem
 	{
@@ -22,6 +23,9 @@
 			game			"../Half-Life 2/ep2"
 			game			"../Half-Life 2/episodic"
 			game			"../Half-Life 2/hl2"
+			
+			game+mod			hl2mp/hl2mp_english.vpk
+			game+mod			hl2mp/hl2mp_pak.vpk
 			
 			// workaround to get ep2 and ep1 assets on MP branch
 			//game+mod		"../Source SDK Base 2013 Singleplayer/ep2/ep2_english.vpk"

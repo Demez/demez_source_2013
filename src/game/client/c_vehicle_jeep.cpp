@@ -8,7 +8,6 @@
 #include "c_vehicle_jeep.h"
 #include "movevars_shared.h"
 #include "view.h"
-#include "flashlighteffect.h"
 #include "c_baseplayer.h"
 #include "c_te_effect_dispatch.h"
 #include "fx.h"
@@ -16,8 +15,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-extern ConVar default_fov;
-
+ConVar fov_jeep( "fov_jeep", "90", FCVAR_ARCHIVE );
 ConVar r_JeepViewBlendTo( "r_JeepViewBlendTo", "1", FCVAR_CHEAT );
 ConVar r_JeepViewBlendToScale( "r_JeepViewBlendToScale", "0.03", FCVAR_CHEAT );
 ConVar r_JeepViewBlendToTime( "r_JeepViewBlendToTime", "1.5", FCVAR_CHEAT );
@@ -38,9 +36,7 @@ C_PropJeep::C_PropJeep()
 	m_vecEyeSpeed.Init();
 	m_flViewAngleDeltaTime = 0.0f;
 	m_pHeadlight = NULL;
-	
-	ConVarRef r_JeepFOV( "r_JeepFOV" );
-	m_ViewSmoothingData.flFOV = r_JeepFOV.GetFloat();
+	m_ViewSmoothingData.flFOV = fov_jeep.GetFloat();
 }
 
 //-----------------------------------------------------------------------------

@@ -7,11 +7,20 @@
 #define C_VEHICLE_JEEP_H
 #pragma once
 
+// why is this file in the base files?
+
 #include "cbase.h"
 #include "c_prop_vehicle.h"
 //#include "movevars_shared.h"
 //#include "view.h"
+
+// TODO: remove this junk from the base client file
+#if defined( DEMEZ_HL2 )
+#include "headlight.h"
+#elif defined( HL2MP )
 #include "flashlighteffect.h"
+#endif
+
 //#include "c_baseplayer.h"
 //#include "c_te_effect_dispatch.h"
 

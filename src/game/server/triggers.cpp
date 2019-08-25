@@ -35,7 +35,10 @@
 #include "gameinterface.h"
 #include "ilagcompensationmanager.h"
 
-#ifdef HL2_DLL
+// ew
+#ifdef DEMEZ_HL2
+#include "demez_hl2_player.h"
+#elif HL2_DLL
 #include "hl2_player.h"
 #endif
 
@@ -1587,6 +1590,9 @@ void CChangeLevel::WarnAboutActiveLead( void )
 	}
 }
 
+extern ConVar mp_transition_players_percent;
+extern ConVar sv_transitions;
+
 void CChangeLevel::ChangeLevelNow( CBaseEntity *pActivator )
 {
 	CBaseEntity	*pLandmark;
@@ -1595,8 +1601,54 @@ void CChangeLevel::ChangeLevelNow( CBaseEntity *pActivator )
 	Assert(!FStrEq(m_szMapName, ""));
 
 	// Don't work in deathmatch
-	if ( g_pGameRules->IsDeathmatch() )
+//	if ( g_pGameRules->IsDeathmatch() )
+//		return;
+
+	// Get all the players who activate our multiplayer transition.
+	CBasePlayer* pPlayer = ( pActivator && pActivator->IsPlayer() ) ? ToBasePlayer( pActivator ) : UTIL_GetLocalPlayer();
+	if ( !pPlayer )
 		return;
+
+	pPlayer->m_bTransition = true;
+
+	if ( mp_transition_players_percent.GetInt() > 0 )
+	{
+		int totalPlayers = 0;
+		int transitionPlayers = 0;
+		for ( int i = 1; i <= gpGlobals->maxClients; i++ )
+		{
+			CBasePlayer* pPlayer = UTIL_PlayerByIndex( i );
+			if ( pPlayer && pPlayer->IsAlive() )
+			{
+				totalPlayers++;
+				if ( pPlayer->m_bTransition )
+					transitionPlayers++;
+			}
+		}
+
+		if ( ( ( int ) ( transitionPlayers / totalPlayers * 100 ) ) < mp_transition_players_percent.GetInt() )
+		{
+			Msg( "Transitions: Not enough players to trigger level change\n" );
+			return;
+		}
+	}
+
+#ifdef SecobMod__SAVERESTORE
+	CHL2MP_Player* p2Player = ( CHL2MP_Player* ) UTIL_GetLocalPlayer();
+	p2Player->SaveTransitionFile();
+	Transitioned = true;
+#endif //SecobMod__SAVERESTORE
+
+	// This object will get removed in the call to engine->ChangeLevel, copy the params into "safe" memory
+	Q_strncpy( st_szNextMap, m_szMapName, sizeof( st_szNextMap ) );
+
+	//SecobMod__Information  Change to the next map.
+	engine->ChangeLevel( st_szNextMap, NULL );
+	//SecobMod__Information  As far as we're concerned this is where we stop the code because we just transitioned.
+	return;
+
+	// ------------------------------------------
+	// old code
 
 	// Some people are firing these multiple times in a frame, disable
 	if ( m_bTouched )
@@ -1604,7 +1656,7 @@ void CChangeLevel::ChangeLevelNow( CBaseEntity *pActivator )
 
 	m_bTouched = true;
 
-	CBaseEntity *pPlayer = (pActivator && pActivator->IsPlayer()) ? pActivator : UTIL_GetLocalPlayer();
+//	CBaseEntity* pPlayer = ( pActivator && pActivator->IsPlayer() ) ? pActivator : UTIL_GetLocalPlayer();
 
 	int transitionState = InTransitionVolume(pPlayer, m_szLandmarkName);
 	if ( transitionState == TRANSITION_VOLUME_SCREENED_OUT )
@@ -1667,12 +1719,12 @@ void CChangeLevel::ChangeLevelNow( CBaseEntity *pActivator )
 	// If we're debugging, don't actually change level
 	if ( g_debug_transitions.GetInt() == 0 )
 	{
-		if ( gpGlobals->maxClients == 1 )
+	//	if ( gpGlobals->maxClients == 1 )
 		{
 			// runs changelevel2, which doesn't work on multiplayer
 			engine->ChangeLevel( st_szNextMap, st_szNextSpot );
 		}
-		else
+	/*	else
 		{
 			// workaround, though it doesn't keep the "unit",
 			// so i assume physics objects and stuff wont cross over, oh well
@@ -1685,7 +1737,7 @@ void CChangeLevel::ChangeLevelNow( CBaseEntity *pActivator )
 			engine->ClientCommand( pActivator->edict(), change_level );
 
 			//engine->ClientCommand( pHL2Player->edict(), szReturnString );
-		}
+		}*/
 	}
 	else
 	{

@@ -74,10 +74,10 @@ public:
 	bool	CreateItemVPhysicsObject( void );
 	virtual bool	ItemCanBeTouchedByPlayer( CBasePlayer *pPlayer );
 
-#if defined( HL2MP ) || defined( TF_DLL )
+#//if defined( HL2MP ) || defined( TF_DLL )
 	void	FallThink( void );
 	float  m_flNextResetCheckTime;
-#endif
+//#endif
 
 	DECLARE_DATADESC();
 protected:
