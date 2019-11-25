@@ -1,0 +1,71 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+macro OUT_BIN_DIR "$SRC_DIR/../game/$GAMENAME/bin"
+
+include "$SRC_DIR/_qpc_scripts/source_dll_base.qpc"
+
+configuration
+{
+	general
+	{
+		out_dir "Debug_dx9_$GAMENAME" [$WIN32 && $DEBUG]
+		out_dir "Release_dx9_$GAMENAME" [$WIN32 && $RELEASE]
+		int_dir "Debug_dx9_$GAMENAME" [$WIN32 && $DEBUG]
+		int_dir "Release_dx9_$GAMENAME" [$WIN32 && $RELEASE]
+		
+		include_directories
+		{
+			"fxctmp9" "vshtmp9" [$WIN32 || $POSIX]
+			"fxctmp9_360" "vshtmp9_360" [$X360]
+		}
+	}
+	
+	compiler
+	{
+		preprocessor_definitions
+		{
+			"USE_ACTUAL_DX" [($WIN32 || $X360) && !$GL]
+			"STDSHADER_DX9_DLL_EXPORT"
+			"FAST_MATERIALVAR_ACCESS"
+			"GAME_SHADER_DLL"
+		}
+	}
+	
+	linker
+	{
+		libraries
+		{
+			"version.lib" "winmm.lib" [$WIN32]
+			"mathlib"
+			"shaderlib"
+		}
+	}
+}
+
+files
+{
+	folder "Source Files"
+	{
+		"BaseVSShader.cpp"
+		"example_model_dx9.cpp"
+		"example_model_dx9_helper.cpp"
+		"Bloom.cpp"
+		"screenspace_general.cpp"
+	}
+
+	folder "Header Files"
+	{
+		"BaseVSShader.h"
+		"common_fxc.h"
+		"common_hlsl_cpp_consts.h"
+		"common_ps_fxc.h"
+		"common_vertexlitgeneric_dx9.h"
+		"common_vs_fxc.h"
+		"shader_constant_register_map.h"
+		"example_model_dx9_helper.h"
+	}
+
+	"buildsdkshaders.bat"
+	"buildshaders.bat"
+}

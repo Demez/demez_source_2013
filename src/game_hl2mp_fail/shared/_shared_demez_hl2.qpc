@@ -1,0 +1,120 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+macro SHARED_SRC "$SRC_DIR/game/shared"
+macro SHARED "$SHARED_SRC/demez_hl2"
+
+configuration
+{
+	general
+	{
+		include_directories
+		{
+			"$SHARED"
+			"$SHARED/mp"
+			"../../public"
+		}
+	}
+	
+	compiler
+	{
+		preprocessor_definitions
+		{
+			"HL2_EPISODIC"
+			"DEMEZ_HL2"
+		}
+	}
+}
+
+files
+{
+	folder "Base"
+	{
+		folder "Source Files"
+		{
+		}
+
+		folder "Shared"
+		{
+			"$SHARED_SRC/ragdoll_shared.h"
+			"$SHARED_SRC/solidsetdefaults.h"
+			"$SHARED_SRC/touchlink.h"
+			"$SHARED_SRC/vehicle_choreo_generic_shared.h"
+			"$SHARED_SRC/script_intro_shared.cpp"
+			"$SHARED_SRC/predicted_viewmodel.cpp"
+			"$SHARED_SRC/predicted_viewmodel.h"
+			"$SHARED_SRC/teamplay_round_timer.cpp"
+			"$SHARED_SRC/teamplay_round_timer.h"
+		}
+	}
+
+	folder "Demez HL2"
+	{
+		folder "Player"
+		{
+			"$SHARED/hl2_shareddefs.h"
+			"$SHARED/hl2_usermessages.cpp"
+			"$SHARED/hl_gamemovement.cpp"
+			"$SHARED/hl_gamemovement.h"
+			"$SHARED/hl2_player_shared.h"
+			"$SHARED/hl_movedata.h"
+		}
+
+		folder "Weapons"
+		{
+			"$SHARED/basehlcombatweapon_shared.cpp"
+			"$SHARED/basehlcombatweapon_shared.h"
+		}
+
+		folder "Shared"
+		{
+			"$SHARED/achievements_ep1.cpp"
+			"$SHARED/achievements_ep2.cpp"
+			"$SHARED/achievements_epx.cpp"
+			"$SHARED/citadel_effects_shared.h"
+			"$SHARED/env_alyxemp_shared.h"
+			"$SHARED/env_headcrabcanister_shared.cpp"
+			"$SHARED/env_headcrabcanister_shared.h"
+			"$SHARED/npc_advisor_shared.h"
+			"$SHARED/hl2_vehicle_radar.h"
+		}
+
+		folder "HL2MP TEST"
+		{
+			"$SHARED/mp/hl2mp_gamerules.cpp"
+			"$SHARED/mp/hl2mp_gamerules.h"
+			"$SHARED/mp/hl2mp_player_shared.cpp"
+			"$SHARED/mp/hl2mp_player_shared.h"
+			"$SHARED/mp/hl2mp_weapon_parse.cpp"
+			"$SHARED/mp/hl2mp_weapon_parse.h"
+
+			folder "Weapons"
+			{
+				"$SHARED/mp/weapon_357.cpp"
+				"$SHARED/mp/weapon_ar2.cpp"
+				"$SHARED/mp/weapon_ar2.h"
+				"$SHARED/mp/weapon_crossbow.cpp"
+				"$SHARED/mp/weapon_crowbar.cpp"
+				"$SHARED/mp/weapon_crowbar.h"
+				"$SHARED/mp/weapon_frag.cpp"
+				"$SHARED/mp/weapon_hl2mpbase.cpp"
+				"$SHARED/mp/weapon_hl2mpbase.h"
+				"$SHARED/mp/weapon_hl2mpbase_machinegun.cpp"
+				"$SHARED/mp/weapon_hl2mpbase_machinegun.h"
+				"$SHARED/mp/weapon_hl2mpbasebasebludgeon.cpp"
+				"$SHARED/mp/weapon_hl2mpbasehlmpcombatweapon.cpp"
+				"$SHARED/mp/weapon_hl2mpbasehlmpcombatweapon.h"
+				"$SHARED/mp/weapon_physcannon.cpp"
+				"$SHARED/mp/weapon_physcannon.h"
+				"$SHARED/mp/weapon_pistol.cpp"
+				"$SHARED/mp/weapon_rpg.cpp"
+				"$SHARED/mp/weapon_rpg.h"
+				"$SHARED/mp/weapon_shotgun.cpp"
+				"$SHARED/mp/weapon_slam.cpp"
+				"$SHARED/mp/weapon_slam.h"
+				"$SHARED/mp/weapon_smg1.cpp"
+				"$SHARED/mp/weapon_stunstick.cpp"
+			}
+		}
+	}
+}

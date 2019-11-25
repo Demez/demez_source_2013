@@ -1,0 +1,15 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+configuration
+{
+	linker
+	{
+		libraries
+		{
+			- "$SRC_DIR/lib/$PLATFORM/tier1$_STATICLIB_EXT" [!$WINDOWS]
+			- "$LIBPUBLIC/tier1$_STATICLIB_EXT" [$WINDOWS]
+		}
+	}
+}
+

@@ -1,0 +1,63 @@
+// ---------------------------------------------------------------
+// Project Script Paths
+// ---------------------------------------------------------------
+
+project "client"
+{
+	"game\client\_client_demez_hl2.qpc"	[$DEMEZ_HL2]
+	"game\client\_client_hl2mp.qpc"		[$HL2MP]
+}
+
+project "server"
+{
+	"game\server\_server_demez_hl2.qpc"	[$DEMEZ_HL2]
+	"game\server\_server_hl2mp.qpc"		[$HL2MP]
+}
+
+project "game_shader_dx9"
+{
+	"materialsystem\stdshaders\game_shader_dx9_hl2mp.qpc" [$HL2MP]
+}
+
+project "captioncompiler"		"utils\captioncompiler\captioncompiler.qpc" [$WINDOWS]
+
+project "fgdlib"				"fgdlib\fgdlib.qpc" [$WINDOWS]
+
+project "glview"				"utils\glview\glview.qpc" [$WINDOWS]
+
+project "height2normal"			"utils\height2normal\height2normal.qpc" [$WINDOWS]
+
+project "mathlib"				"mathlib\mathlib.qpc" [$WINDOWS||$X360||$POSIX]
+
+project "motionmapper"			"utils\motionmapper\motionmapper.qpc" [$WINDOWS]
+
+project "phonemeextractor"		"utils\phonemeextractor\phonemeextractor.qpc" [$WINDOWS]
+
+project "raytrace"				"raytrace\raytrace.qpc" [$WINDOWS||$X360||$POSIX]
+
+project "qc_eyes"				"utils\qc_eyes\qc_eyes.qpc" [$WINDOWS]
+
+project "serverplugin_empty"	"utils\serverplugin_sample\serverplugin_empty.qpc" [$WINDOWS||$POSIX]
+
+project "tgadiff"				"utils\tgadiff\tgadiff.qpc" [$WINDOWS]
+
+project "tier1"					"tier1\tier1.qpc" 	[$WINDOWS || $X360||$POSIX]
+
+project "vbsp"					"utils\vbsp\vbsp.qpc" [$WINDOWS]
+
+project "vgui_controls"			"vgui2\vgui_controls\vgui_controls.qpc" [$WINDOWS||$X360||$POSIX]
+
+project "vice"					"utils\vice\vice.qpc" [$WINDOWS]
+
+project "vrad_dll"				"utils\vrad\vrad_dll.qpc" [$WINDOWS]
+
+project "vrad_launcher"			"utils\vrad_launcher\vrad_launcher.qpc" [$WINDOWS]
+
+project "vtf2tga"				"utils\vtf2tga\vtf2tga.qpc" [$WINDOWS]
+
+project "vtfdiff"				"utils\vtfdiff\vtfdiff.qpc" [$WINDOWS]
+
+project "vvis_dll"				"utils\vvis\vvis_dll.qpc" [$WINDOWS]
+
+project "vvis_launcher"			"utils\vvis_launcher\vvis_launcher.qpc" [$WINDOWS]
+

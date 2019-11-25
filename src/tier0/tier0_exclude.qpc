@@ -1,0 +1,21 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+configuration
+{
+	linker
+	{
+		libraries
+		{
+			- "$LIBPUBLIC/tier0"
+		}
+	}
+}
+
+files
+{
+	folder "Source Files"
+	{
+		- "$SRC_DIR/public/tier0/memoverride.cpp"
+	}
+}

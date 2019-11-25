@@ -1,0 +1,328 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+macro PROJECT_NAME "Server (Demez HL2)"
+
+macro SRC_DIR "../.."
+macro GAMENAME "demez_hl2"
+
+include "$SRC_DIR/game/server/_server_base.qpc"
+include "$SRC_DIR/game/server/nav_mesh.qpc"
+include "$SRC_DIR/game/shared/_shared_demez_hl2.qpc"
+
+configuration
+{
+	general
+	{
+		include_directories
+		{
+			"./demez_hl2"
+			"./demez_hl2/hl2"
+			"./demez_hl2/mp"
+		}
+	}
+	
+	compiler
+	{
+		preprocessor_definitions
+		{
+			"HL2_DLL"
+			"USES_SAVERESTORE"
+		}
+	}
+}
+
+files
+{
+	folder "Base"
+	{
+		"ai_eventresponse.cpp"
+		"ai_eventresponse.h"
+		"ai_relationship.cpp"
+		"basegrenade_concussion.cpp"
+		"basegrenade_contact.cpp"
+		"basegrenade_timed.cpp"
+		"grenadethrown.cpp"
+		"grenadethrown.h"
+		"h_cycler.cpp"
+		"h_cycler.h"
+		"monstermaker.cpp"
+		"monstermaker.h"
+		"vehicle_choreo_generic.cpp"
+		"EntityFlame.h"
+		"physics_bone_follower.h"
+		"$SRC_DIR/game/shared/teamplayroundbased_gamerules.cpp"
+		"$SRC_DIR/game/shared/touchlink.h"
+		"team_objectiveresource.cpp"
+		"team_objectiveresource.h"
+		"team_spawnpoint.cpp"
+		"team_spawnpoint.h"
+		"team_control_point.cpp"
+		"team_control_point.h"
+		"team_control_point_master.cpp"
+		"team_control_point_master.h"
+		"team_control_point_round.cpp"
+		"team_control_point_round.h"
+		"team_train_watcher.cpp"
+		"team_train_watcher.h"
+		"trigger_area_capture.cpp"
+		"trigger_area_capture.h"
+
+		folder "Weapons"
+		{
+
+			"basebludgeonweapon.cpp"	\
+			"basebludgeonweapon.h"
+			"weapon_cubemap.cpp"
+		}
+	}
+
+	folder "Demez HL2"
+	{
+		folder "AI"
+		{
+			"demez_hl2/ai_allymanager.cpp"
+			"demez_hl2/ai_behavior_actbusy.cpp"
+			"demez_hl2/ai_behavior_actbusy.h"
+			"demez_hl2/ai_behavior_alyx_injured.cpp"
+			"demez_hl2/ai_behavior_alyx_injured.h"
+			"demez_hl2/ai_behavior_functank.cpp"
+			"demez_hl2/ai_behavior_functank.h"
+			"demez_hl2/ai_behavior_holster.cpp"
+			"demez_hl2/ai_behavior_holster.h"
+			"demez_hl2/ai_behavior_operator.cpp"
+			"demez_hl2/ai_behavior_operator.h"
+			"ai_behavior_passenger.cpp"
+			"ai_behavior_passenger.h"
+			"demez_hl2/ai_behavior_passenger_companion.cpp"
+			"demez_hl2/ai_behavior_passenger_companion.h"
+			"demez_hl2/ai_behavior_passenger_zombie.cpp"
+			"demez_hl2/ai_behavior_passenger_zombie.h"
+			"demez_hl2/ai_behavior_police.cpp"
+			"demez_hl2/ai_behavior_police.h"
+			"demez_hl2/ai_goal_police.cpp"
+			"demez_hl2/ai_goal_police.h"
+			"demez_hl2/ai_interactions.h"
+			"demez_hl2/ai_spotlight.cpp"
+			"demez_hl2/ai_spotlight.h"
+		}
+
+		folder "Unsorted"
+		{
+			"demez_hl2/antlion_dust.cpp"
+			"demez_hl2/antlion_dust.h"
+			"demez_hl2/antlion_maker.cpp"
+			"demez_hl2/antlion_maker.h"
+			"demez_hl2/ar2_explosion.cpp"
+			"demez_hl2/ar2_explosion.h"
+			"demez_hl2/cbasehelicopter.cpp"
+			"demez_hl2/cbasehelicopter.h"
+			"demez_hl2/cbasespriteprojectile.cpp"
+			"demez_hl2/cbasespriteprojectile.h"
+			"demez_hl2/citadel_effects.cpp"
+			"demez_hl2/combine_mine.cpp"
+			"demez_hl2/combine_mine.h"
+			"demez_hl2/energy_wave.h"
+			"demez_hl2/env_alyxemp.cpp"
+			"demez_hl2/env_headcrabcanister.cpp"
+			"demez_hl2/env_speaker.cpp"
+			"demez_hl2/env_starfield.cpp"
+			"demez_hl2/Func_Monitor.cpp"
+			"demez_hl2/func_recharge.cpp"
+			"demez_hl2/func_tank.cpp"
+			"demez_hl2/func_tank.h"
+			"demez_hl2/hl2_ai_network.cpp"
+			"demez_hl2/hl2_triggers.cpp"
+			"demez_hl2/hl2_eventlog.cpp"
+			"demez_hl2/info_darknessmode_lightsource.cpp"
+			"demez_hl2/info_darknessmode_lightsource.h"
+			"demez_hl2/info_teleporter_countdown.cpp"
+			"demez_hl2/look_door.cpp"
+			"demez_hl2/monster_dummy.cpp"
+			"demez_hl2/point_apc_controller.cpp"
+			"demez_hl2/prop_combine_ball.cpp"
+			"demez_hl2/prop_combine_ball.h"
+			"demez_hl2/prop_scalable.cpp"
+			"demez_hl2/prop_thumper.cpp"
+			"demez_hl2/proto_sniper.cpp"
+			"demez_hl2/rotorwash.cpp"
+			"demez_hl2/rotorwash.h"
+			"demez_hl2/script_intro.cpp"
+			"demez_hl2/script_intro.h"
+			"demez_hl2/func_bulletshield.cpp"
+			"demez_hl2/func_bulletshield.h"
+			"demez_hl2/te_gaussexplosion.cpp"
+		}
+
+		folder "Items"
+		{
+			"demez_hl2/item_ammo.cpp"
+			"demez_hl2/item_battery.cpp"
+
+			"demez_hl2/item_dynamic_resupply.cpp"	\
+			"demez_hl2/item_dynamic_resupply.h"
+			"demez_hl2/item_healthkit.cpp"
+			"demez_hl2/item_itemcrate.cpp"
+			"demez_hl2/item_suit.cpp"
+		}
+
+		folder "Player"
+		{
+
+			"demez_hl2/demez_hl2_player.cpp"	\
+			"demez_hl2/demez_hl2_player.h"
+
+			"demez_hl2/hl2_playerlocaldata.cpp"	\
+			"demez_hl2/hl2_playerlocaldata.h"
+			"demez_hl2/hl_playermove.cpp"
+		}
+
+		folder "Weapons"
+		{
+			"demez_hl2/basehlcombatweapon.cpp"
+			"demez_hl2/basehlcombatweapon.h"
+			"demez_hl2/weapon_alyxgun.cpp"
+			"demez_hl2/weapon_alyxgun.h"
+			"demez_hl2/weapon_striderbuster.cpp"
+			"demez_hl2/weapon_striderbuster.h"
+			"demez_hl2/weapon_bugbait.cpp"
+			"demez_hl2/grenade_ar2.cpp"
+			"demez_hl2/grenade_ar2.h"
+			"demez_hl2/grenade_bugbait.cpp"
+			"demez_hl2/grenade_bugbait.h"
+			"demez_hl2/grenade_frag.cpp"
+			"demez_hl2/grenade_frag.h"
+			"demez_hl2/grenade_spit.cpp"
+			"demez_hl2/grenade_spit.h"
+		}
+
+		folder "NPCs"
+		{
+			"demez_hl2/npc_advisor.cpp"
+			"demez_hl2/npc_alyx_episodic.cpp"
+			"demez_hl2/npc_alyx_episodic.h"
+			"demez_hl2/npc_antlion.cpp"
+			"demez_hl2/npc_antlion.h"
+			"demez_hl2/npc_antlionguard.cpp"
+			"demez_hl2/npc_antliongrub.cpp"
+			"demez_hl2/npc_apcdriver.cpp"
+			"demez_hl2/npc_attackchopper.cpp"
+			"demez_hl2/npc_attackchopper.h"
+			"demez_hl2/npc_barnacle.cpp"
+			"demez_hl2/npc_barnacle.h"
+			"demez_hl2/npc_barney.cpp"
+			"demez_hl2/npc_basescanner.cpp"
+			"demez_hl2/npc_basescanner.h"
+			"demez_hl2/npc_BaseZombie.cpp"
+			"demez_hl2/npc_BaseZombie.h"
+			"demez_hl2/npc_breen.cpp"
+			"demez_hl2/npc_bullseye.cpp"
+			"demez_hl2/npc_bullseye.h"
+			"demez_hl2/npc_citizen17.cpp"
+			"demez_hl2/npc_citizen17.h"
+			"demez_hl2/npc_combine_cannon.cpp"
+			"demez_hl2/npc_combine.cpp"
+			"demez_hl2/npc_combine.h"
+			"demez_hl2/npc_combinecamera.cpp"
+			"demez_hl2/npc_combinedropship.cpp"
+			"demez_hl2/npc_combinegunship.cpp"
+			"demez_hl2/npc_combines.cpp"
+			"demez_hl2/npc_combines.h"
+			"demez_hl2/npc_cranedriver.cpp"
+			"demez_hl2/npc_crow.cpp"
+			"demez_hl2/npc_crow.h"
+			"demez_hl2/npc_dog.cpp"
+			"demez_hl2/npc_eli.cpp"
+			"demez_hl2/npc_enemyfinder.cpp"
+			"demez_hl2/npc_fastzombie.cpp"
+			"demez_hl2/npc_fisherman.cpp"
+			"demez_hl2/npc_gman.cpp"
+			"demez_hl2/npc_headcrab.cpp"
+			"demez_hl2/npc_headcrab.h"
+			"demez_hl2/npc_hunter.cpp"
+			"demez_hl2/npc_hunter.h"
+			"demez_hl2/npc_ichthyosaur.cpp"
+			"demez_hl2/npc_kleiner.cpp"
+			"demez_hl2/npc_launcher.cpp"
+			"demez_hl2/npc_magnusson.cpp"
+			"demez_hl2/npc_manhack.cpp"
+			"demez_hl2/npc_manhack.h"
+			"demez_hl2/npc_metropolice.cpp"
+			"demez_hl2/npc_metropolice.h"
+			"demez_hl2/npc_monk.cpp"
+			"demez_hl2/npc_mossman.cpp"
+			"demez_hl2/npc_playercompanion.cpp"
+			"demez_hl2/npc_playercompanion.h"
+			"demez_hl2/npc_PoisonZombie.cpp"
+			"demez_hl2/npc_rollermine.cpp"
+			"demez_hl2/npc_rollermine.h"
+			"demez_hl2/npc_scanner.cpp"
+			"demez_hl2/npc_scanner.h"
+			"demez_hl2/npc_stalker.cpp"
+			"demez_hl2/npc_stalker.h"
+			"demez_hl2/npc_strider.cpp"
+			"demez_hl2/npc_strider.h"
+			"demez_hl2/npc_turret_ceiling.cpp"
+			"demez_hl2/npc_turret_floor.cpp"
+			"demez_hl2/npc_turret_ground.cpp"
+			"demez_hl2/npc_vortigaunt_episodic.cpp"
+			"demez_hl2/npc_vortigaunt_episodic.h"
+			"demez_hl2/npc_zombie.cpp"
+			"demez_hl2/npc_zombine.cpp"
+			"demez_hl2/npc_puppet.cpp"
+			"npc_talker.cpp"
+			"npc_talker.h"
+		}
+
+		folder "Vehicles"
+		{
+			"demez_hl2/vehicle_airboat.cpp"
+			"demez_hl2/vehicle_apc.cpp"
+			"demez_hl2/vehicle_apc.h"
+			"demez_hl2/vehicle_cannon.cpp"
+			"demez_hl2/vehicle_crane.cpp"
+			"demez_hl2/vehicle_crane.h"
+			"demez_hl2/vehicle_jeep.cpp"
+			"demez_hl2/vehicle_jeep_episodic.cpp"
+			"demez_hl2/vehicle_jeep_episodic.h"
+			"demez_hl2/vehicle_prisoner_pod.cpp"
+			"demez_hl2/vehicle_viewcontroller.cpp"
+		}
+
+		folder "Unused"
+		{
+			"demez_hl2/grenade_beam.cpp"
+			"demez_hl2/grenade_beam.h"
+			"demez_hl2/grenade_homer.cpp"
+			"demez_hl2/grenade_homer.h"
+			"demez_hl2/grenade_pathfollower.cpp"
+			"demez_hl2/grenade_pathfollower.h"
+			"demez_hl2/npc_missiledefense.cpp"
+			"demez_hl2/weapon_cguard.cpp"
+			"demez_hl2/weapon_flaregun.cpp"
+			"demez_hl2/weapon_flaregun.h"
+		}
+
+		folder "HL2MP TEST"
+		{
+			"demez_hl2/mp/hl2mp_bot_temp.cpp"
+			"demez_hl2/mp/hl2mp_bot_temp.h"
+			"demez_hl2/mp/hl2mp_client.cpp"
+			"demez_hl2/mp/hl2mp_cvars.cpp"
+			"demez_hl2/mp/hl2mp_gameinterface.cpp"
+			"demez_hl2/mp/hl2mp_gameinterface.h"
+			"demez_hl2/mp/hl2mp_player.cpp"
+			"demez_hl2/mp/hl2mp_player.h"
+
+			folder "Weapons"
+			{
+				"demez_hl2/mp/grenade_satchel.cpp"
+				"demez_hl2/mp/grenade_satchel.h"
+				"demez_hl2/mp/grenade_tripmine.cpp"
+				"demez_hl2/mp/grenade_tripmine.h"
+				"demez_hl2/mp/te_hl2mp_shotgun_shot.cpp"
+				"demez_hl2/mp/te_hl2mp_shotgun_shot.h"
+			}
+		}
+	}
+}

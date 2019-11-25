@@ -1,0 +1,44 @@
+// ---------------------------------------------------------------
+// Base Application Settings
+// ---------------------------------------------------------------
+macro OUT_BIN_NAME "$PROJECT_NAME"
+macro OUT_BIN_DIR	"$BINDEFAULT"	[!$OUT_BIN_DIR]
+
+include "$SRC_DIR/_qpc_scripts/source_base.qpc"
+
+include "$SRC_DIR/_qpc_scripts/posix/exe_base.qpc"	[$POSIX]
+include "$SRC_DIR/_qpc_scripts/win/exe_base.qpc" 	[$WINDOWS]
+
+configuration
+{
+	general
+	{
+	//	out_dir "./$CONFIG/$_SUBDIRSUFFIX"	// change to $BINDEFAULT?
+		out_dir "./$OUT_BIN_DIR"
+		
+		int_dir "./$CONFIG/$_SUBDIRSUFFIX"
+		configuration_type "application"
+
+		library_directories
+		{
+			"$LIBCOMMON" "$LIBPUBLIC"
+		}
+		
+		options
+		{
+			"/ltcg" [$LTCG && $WIN32 && $RELEASE]
+		}
+	}
+	
+	linker
+	{
+		libraries
+		{
+			"$LIBPUBLIC/tier0"
+			"$LIBPUBLIC/tier1"
+			"$LIBPUBLIC/vstdlib"
+		}
+	}
+}
+
+

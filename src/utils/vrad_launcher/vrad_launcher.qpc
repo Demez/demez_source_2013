@@ -1,0 +1,53 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+macro PROJECT_NAME "Vrad_launcher"
+
+macro SRC_DIR "../.."
+macro OUT_BIN_DIR "$SRC_DIR/../game/bin"
+macro OUT_BIN_NAME "vrad"
+
+include "$SRC_DIR/_qpc_scripts/source_exe_con_base.qpc"
+
+configuration
+{
+	compiler
+	{
+		precompiled_header "use"
+		precompiled_header_out_file "$(IntDir)/vrad_launcher.pch"
+	}
+	
+	linker
+	{
+		options
+		{
+			"/LARGEADDRESSAWARE" [$WIN32]
+		}
+	}
+}
+
+files
+{
+	folder "Source Files"
+	{
+		- "$SRC_DIR/public/tier0/memoverride.cpp"
+		"vrad_launcher.cpp"
+		"StdAfx.cpp"
+		{
+			configuration
+			{
+				compiler
+				{
+					precompiled_header "create"
+				}
+			}
+		}
+	}
+
+	folder "Header Files"
+	{
+		"$SRC_DIR/public/tier1/interface.h"
+		"$SRC_DIR/public/ivraddll.h"
+		"StdAfx.h"
+	}
+}

@@ -1,0 +1,165 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+macro PROJECT_NAME "Client (Demez HL2)"
+
+macro SRC_DIR "../.."
+macro GAMENAME "demez_hl2"
+
+include "$SRC_DIR/game/client/_client_base.qpc"
+include "$SRC_DIR/game/shared/_shared_demez_hl2.qpc"
+
+configuration
+{
+	general
+	{
+		include_directories
+		{
+			"./demez_hl2"
+			"./demez_hl2/hl2"
+			"./demez_hl2/mp"
+		}
+	}
+	
+	compiler
+	{
+		preprocessor_definitions
+		{
+			"HL2_CLIENT_DLL"
+		}
+	}
+}
+
+files
+{
+	folder "Base"
+	{
+		folder "HUD"
+		{
+			"hud_posture.cpp"
+		}
+
+		folder "Source Files"
+		{
+			- "flashlighteffect.cpp"
+		}
+
+		folder "Header Files"
+		{
+			- "flashlighteffect.h"
+		}
+	}
+
+	folder "Demez HL2"
+	{
+		folder "NPCs"
+		{
+			"demez_hl2/hl2/c_barnacle.cpp"
+			"demez_hl2/hl2/c_barney.cpp"
+			"demez_hl2/hl2/c_basehelicopter.cpp"
+			"demez_hl2/hl2/c_basehelicopter.h"
+			"demez_hl2/hl2/c_npc_antlionguard.cpp"
+			"demez_hl2/hl2/c_npc_combinegunship.cpp"
+			"demez_hl2/hl2/c_npc_manhack.cpp"
+			"demez_hl2/hl2/c_npc_rollermine.cpp"
+			"demez_hl2/hl2/c_npc_advisor.cpp"
+			"demez_hl2/hl2/c_strider.cpp"
+			"demez_hl2/hl2/c_npc_puppet.cpp"
+			"demez_hl2/hl2/c_env_alyxtemp.cpp"
+			"demez_hl2/hl2/c_prop_combine_ball.cpp"
+			"demez_hl2/hl2/c_prop_combine_ball.h"
+		}
+
+		folder "Vehicles"
+		{
+			"demez_hl2/hl2/c_vehicle_airboat.cpp"
+			"demez_hl2/hl2/c_vehicle_cannon.cpp"
+			"demez_hl2/hl2/c_vehicle_crane.cpp"
+			"demez_hl2/hl2/c_vehicle_crane.h"
+			"demez_hl2/hl2/c_vehicle_jeep_episodic.cpp"
+			"demez_hl2/hl2/c_vehicle_prisoner_pod.cpp"
+		}
+
+		folder "Weapons"
+		{
+			"demez_hl2/hl2/c_basehlcombatweapon.cpp"
+			"demez_hl2/hl2/c_basehlcombatweapon.h"
+			"demez_hl2/hl2/c_weapon__stubs_hl2.cpp"
+			"demez_hl2/hl2/c_weapon_crossbow.cpp"
+			"demez_hl2/hl2/c_weapon_hopwire.cpp"
+			"demez_hl2/hl2/c_ar2_explosion.cpp"
+		}
+
+		folder "HUD"
+		{
+			"demez_hl2/hl2/hud_ammo.cpp"
+			"demez_hl2/hl2/hud_battery.cpp"
+			"demez_hl2/hl2/hud_blood.cpp"
+			"demez_hl2/hl2/hud_credits.cpp"
+			"demez_hl2/hl2/hud_damageindicator.cpp"
+			"demez_hl2/hl2/hud_flashlight.cpp"
+			"demez_hl2/hl2/hud_locator.cpp"
+			"demez_hl2/hl2/hud_health.cpp"
+			"demez_hl2/hl2/hud_poisondamageindicator.cpp"
+			"demez_hl2/hl2/hud_quickinfo.cpp"
+			"demez_hl2/hl2/hud_radar.cpp"
+			"demez_hl2/hl2/hud_radar.h"
+			"demez_hl2/hl2/hud_suitpower.cpp"
+			"demez_hl2/hl2/hud_suitpower.h"
+			"demez_hl2/hl2/hud_squadstatus.cpp"
+			"demez_hl2/hl2/hud_weaponselection.cpp"
+			"demez_hl2/hl2/hud_zoom.cpp"
+			"demez_hl2/hl2/vgui_rootpanel_hl2.cpp"
+		}
+
+		folder "Player"
+		{
+			"demez_hl2/hl2/c_demez_hl2_player.cpp"
+			"demez_hl2/hl2/c_demez_hl2_player.h"
+			"demez_hl2/hl2/c_hl2_playerlocaldata.cpp"
+			"demez_hl2/hl2/c_hl2_playerlocaldata.h"
+			"demez_hl2/hl2/hl2_clientmode.cpp"
+			"demez_hl2/hl2/clientmode_hlnormal.cpp"
+			"demez_hl2/hl2/clientmode_hlnormal.h"
+			"demez_hl2/flashlight.cpp"
+			"demez_hl2/flashlight.h"
+			"demez_hl2/headlight.cpp"
+			"demez_hl2/headlight.h"
+		}
+
+		folder "Unsorted"
+		{
+			"demez_hl2/hl2/c_antlion_dust.cpp"
+			"demez_hl2/hl2/c_citadel_effects.cpp"
+			"demez_hl2/hl2/c_corpse.cpp"
+			"demez_hl2/hl2/c_corpse.h"
+			"demez_hl2/hl2/c_env_headcrabcanister.cpp"
+			"demez_hl2/hl2/c_env_starfield.cpp"
+			"demez_hl2/hl2/c_func_tankmortar.cpp"
+			"demez_hl2/hl2/c_info_teleporter_countdown.cpp"
+			"demez_hl2/hl2/c_plasma_beam_node.cpp"
+			"demez_hl2/hl2/c_prop_scalable.cpp"
+			"demez_hl2/hl2/c_rotorwash.cpp"
+			"demez_hl2/hl2/c_script_intro.cpp"
+			"demez_hl2/hl2/c_te_concussiveexplosion.cpp"
+			"demez_hl2/hl2/c_te_flare.cpp"
+			"demez_hl2/hl2/c_thumper_dust.cpp"
+			"demez_hl2/hl2/c_vort_charge_token.cpp"
+			"demez_hl2/hl2/episodic_screenspaceeffects.cpp"
+			"demez_hl2/hl2/episodic_screenspaceeffects.h"
+			"demez_hl2/hl2/flesh_internal_material_proxy.cpp"
+			"demez_hl2/hl2/fx_antlion.cpp"
+			"demez_hl2/hl2/fx_bugbait.cpp"
+			"demez_hl2/hl2/fx_hl2_impacts.cpp"
+			"demez_hl2/hl2/fx_hl2_tracers.cpp"
+			"demez_hl2/hl2/hl_in_main.cpp"
+			"demez_hl2/hl2/hl_prediction.cpp"
+			"demez_hl2/hl2/shieldproxy.cpp"
+			"demez_hl2/hl2/c_waterbullet.cpp"
+			"demez_hl2/hl2/hud_autoaim.cpp"
+			"demez_hl2/hl2/hud_filmdemo.cpp"
+			"demez_hl2/hl2/hud_hdrdemo.cpp"
+			"demez_hl2/hl2/C_Func_Monitor.cpp"
+		}
+	}
+}

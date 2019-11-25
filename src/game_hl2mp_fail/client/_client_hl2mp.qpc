@@ -1,0 +1,188 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+macro PROJECT_NAME "Client (HL2MP)"
+
+macro SRC_DIR "../.."
+macro GAMENAME "hl2mp" [!$SOURCESDK]
+macro GAMENAME "mod_hl2mp" [$SOURCESDK]
+
+include "$SRC_DIR/game/client/_client_base.qpc"
+
+configuration
+{
+	general
+	{
+		include_directories
+		{
+			"hl2mp/ui"
+			"./hl2mp"
+			"$SRC_DIR/game/shared/hl2mp"
+			"./hl2"
+			"./hl2/elements"
+			"$SRC_DIR/game/shared/hl2"
+		}
+	}
+	
+	compiler
+	{
+		preprocessor_definitions
+		{
+			"HL2MP"
+			"HL2_CLIENT_DLL"
+		}
+	}
+}
+
+files
+{
+	folder "Source Files"
+	{
+		- "$SRC_DIR/game/shared/weapon_parse_default.cpp"
+		"c_team_objectiveresource.cpp"
+		"c_team_objectiveresource.h"
+		"c_team_train_watcher.cpp"
+		"c_team_train_watcher.h"
+		"hud_voicestatus.cpp"
+		"$SRC_DIR/game/shared/predicted_viewmodel.cpp"
+		"$SRC_DIR/game/shared/predicted_viewmodel.h"
+		"$SRC_DIR/game/shared/teamplay_round_timer.cpp"
+		"$SRC_DIR/game/shared/teamplay_round_timer.h"
+
+		folder "HL2 DLL"
+		{
+			"episodic/c_vort_charge_token.cpp"
+			"$SRC_DIR/game/shared/hl2/basehlcombatweapon_shared.cpp"
+			"hl2/c_antlion_dust.cpp"
+			"hl2/c_ar2_explosion.cpp"
+			"hl2/c_barnacle.cpp"
+			"hl2/c_barney.cpp"
+			"hl2/c_basehelicopter.cpp"
+			"hl2/c_basehelicopter.h"
+			"hl2/c_basehlcombatweapon.cpp"
+			"hl2/c_basehlcombatweapon.h"
+			"hl2/c_basehlplayer.cpp"
+			"hl2/c_basehlplayer.h"
+			"hl2/c_citadel_effects.cpp"
+			"hl2/c_corpse.cpp"
+			"hl2/c_corpse.h"
+			"hl2/c_env_alyxtemp.cpp"
+			"hl2/c_env_headcrabcanister.cpp"
+			"hl2/c_env_starfield.cpp"
+			"hl2/c_func_tankmortar.cpp"
+			"hl2/c_hl2_playerlocaldata.cpp"
+			"hl2/c_hl2_playerlocaldata.h"
+			"hl2/c_info_teleporter_countdown.cpp"
+			"hl2/c_npc_antlionguard.cpp"
+			"hl2/c_npc_combinegunship.cpp"
+			"hl2/c_npc_manhack.cpp"
+			"hl2/c_npc_rollermine.cpp"
+			"hl2/c_plasma_beam_node.cpp"
+			"hl2/c_prop_combine_ball.cpp"
+			"hl2/c_prop_combine_ball.h"
+			"hl2/c_rotorwash.cpp"
+			"hl2/c_script_intro.cpp"
+			"$SRC_DIR/game/shared/script_intro_shared.cpp"
+			"hl2/c_strider.cpp"
+			"hl2/c_te_concussiveexplosion.cpp"
+			"hl2/c_te_flare.cpp"
+			"hl2/c_thumper_dust.cpp"
+			"hl2/c_vehicle_airboat.cpp"
+			"hl2/c_vehicle_cannon.cpp"
+			"hl2/c_vehicle_crane.cpp"
+			"hl2/c_vehicle_crane.h"
+			"hl2/c_vehicle_prisoner_pod.cpp"
+			"hl2/c_weapon__stubs_hl2.cpp"
+			"hl2/c_weapon_crossbow.cpp"
+			"$SRC_DIR/game/shared/hl2/citadel_effects_shared.h"
+			"$SRC_DIR/game/shared/hl2/env_headcrabcanister_shared.cpp"
+			"$SRC_DIR/game/shared/hl2/env_headcrabcanister_shared.h"
+			"hl2/fx_antlion.cpp"
+			"hl2/fx_bugbait.cpp"
+			"hl2/fx_hl2_impacts.cpp"
+			"hl2/fx_hl2_tracers.cpp"
+			"hl2/hl2_clientmode.cpp"
+			"$SRC_DIR/game/shared/hl2/hl2_gamerules.cpp"
+			"$SRC_DIR/game/shared/hl2/hl2_gamerules.h"
+			"$SRC_DIR/game/shared/hl2/hl2_shareddefs.h"
+			"$SRC_DIR/game/shared/hl2/hl2_usermessages.cpp"
+			"$SRC_DIR/game/shared/hl2/hl_gamemovement.cpp"
+			"$SRC_DIR/game/shared/hl2/hl_gamemovement.h"
+			"hl2/hl_in_main.cpp"
+			"hl2/hl_prediction.cpp"
+			"hl2/hud_ammo.cpp"
+			"hl2/hud_battery.cpp"
+			"hl2/hud_blood.cpp"
+			"hl2/hud_credits.cpp"
+			"hl2/hud_damageindicator.cpp"
+			"hl2/hud_flashlight.cpp"
+			"hl2/hud_health.cpp"
+			"hl2/hud_poisondamageindicator.cpp"
+			"hl2/hud_quickinfo.cpp"
+			"hud_squadstatus.cpp"
+			"hl2/hud_suitpower.cpp"
+			"hl2/hud_suitpower.h"
+			"hl2/hud_weaponselection.cpp"
+			"hl2/hud_zoom.cpp"
+			"hl2/shieldproxy.cpp"
+			"hl2/vgui_rootpanel_hl2.cpp"
+		}
+
+		folder "HL2MP"
+		{
+			"hl2mp/c_hl2mp_player.cpp"
+			"hl2mp/c_hl2mp_player.h"
+			"hl2mp/c_te_hl2mp_shotgun_shot.cpp"
+			"hl2mp/clientmode_hl2mpnormal.cpp"
+			"hl2mp/clientmode_hl2mpnormal.h"
+			"$SRC_DIR/game/shared/hl2mp/hl2mp_gamerules.cpp"
+			"$SRC_DIR/game/shared/hl2mp/hl2mp_gamerules.h"
+			"$SRC_DIR/game/shared/hl2mp/hl2mp_player_shared.cpp"
+			"$SRC_DIR/game/shared/hl2mp/hl2mp_player_shared.h"
+			"$SRC_DIR/game/shared/hl2mp/hl2mp_weapon_parse.cpp"
+			"$SRC_DIR/game/shared/hl2mp/hl2mp_weapon_parse.h"
+
+			folder "Weapons"
+			{
+				"$SRC_DIR/game/shared/hl2mp/weapon_357.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_ar2.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_ar2.h"
+				"$SRC_DIR/game/shared/hl2mp/weapon_crossbow.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_crowbar.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_frag.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_hl2mpbase.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_hl2mpbase.h"
+				"$SRC_DIR/game/shared/hl2mp/weapon_hl2mpbase_machinegun.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_hl2mpbase_machinegun.h"
+				"$SRC_DIR/game/shared/hl2mp/weapon_hl2mpbasebasebludgeon.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_hl2mpbasehlmpcombatweapon.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_hl2mpbasehlmpcombatweapon.h"
+				"$SRC_DIR/game/shared/hl2mp/weapon_physcannon.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_physcannon.h"
+				"$SRC_DIR/game/shared/hl2mp/weapon_pistol.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_rpg.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_rpg.h"
+				"$SRC_DIR/game/shared/hl2mp/weapon_shotgun.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_slam.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_slam.h"
+				"$SRC_DIR/game/shared/hl2mp/weapon_smg1.cpp"
+				"$SRC_DIR/game/shared/hl2mp/weapon_stunstick.cpp"
+			}
+
+			folder "UI"
+			{
+				"hl2mp/ui/backgroundpanel.cpp"
+				"hl2mp/ui/backgroundpanel.h"
+				"hl2mp/hl2mp_hud_chat.cpp"
+				"hl2mp/hl2mp_hud_chat.h"
+				"hl2mp/hl2mp_hud_target_id.cpp"
+				"hl2mp/hl2mp_hud_team.cpp"
+				"hl2mp/ui/hl2mpclientscoreboard.cpp"
+				"hl2mp/ui/hl2mpclientscoreboard.h"
+				"hl2mp/ui/hl2mptextwindow.cpp"
+				"hl2mp/ui/hl2mptextwindow.h"
+				"hl2mp/hud_deathnotice.cpp"
+			}
+		}
+	}
+}

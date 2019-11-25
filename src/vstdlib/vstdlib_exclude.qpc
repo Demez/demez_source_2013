@@ -1,0 +1,19 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+macro PLATFORM
+
+configuration
+{
+	linker
+	{
+		libraries
+		{
+			- "vstdlib" [$POSIX]
+			- "$LIBPUBLIC/$_IMPLIB_PREFIXvstdlib$_IMPLIB_EXT" [$WIN32]
+			- "$LIBPUBLIC$PLATFORM/$_IMPLIB_PREFIXvstdlib$_IMPLIB_EXT" [$WIN64]
+			- "$LIBPUBLIC/vstdlib_360" [$X360]
+		}
+	}
+}
+

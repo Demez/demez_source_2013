@@ -1,0 +1,67 @@
+// ---------------------------------------------------------------
+// Base file included in all projects
+// ---------------------------------------------------------------
+macro CONFIG "Debug"	[$DEBUG]
+macro CONFIG "Release"	[$RELEASE]
+
+macro ARCH "x86"	[$WIN32 || $POSIX32]
+macro ARCH "x86_64"	[$WIN64 || $POSIX64]
+
+macro NOFPO "1" [$RELEASE]
+
+macro LIBPUBLIC "$SRC_DIR/lib/public"
+macro LIBCOMMON "$SRC_DIR/lib/common"
+
+macro PLATFORM ""
+
+macro GAMENAME
+macro _SUBDIRSUFFIX "$GAMENAME"
+
+macro BINDEFAULT "$SRC_DIR/../game/bin/$_SUBDIRSUFFIX"
+
+include "$SRC_DIR/_qpc_scripts/win/base_vstudio.qpc"	[$WINDOWS]
+
+configuration
+{
+	general
+	{
+		language "cpp"
+		include_directories { "$SRC_DIR/common" "$SRC_DIR/public" "$SRC_DIR/public/tier0" "$SRC_DIR/public/tier1" }
+	}
+	
+	compiler
+	{
+		preprocessor_definitions
+		{
+			"STAGING_ONLY" [$STAGING_ONLY]
+			
+			"_HAS_ITERATOR_DEBUGGING=0" "_DEBUG" "DEBUG" 	[$DEBUG]
+			"NDEBUG"										[$RELEASE]
+			
+			"RELEASE_ASSERTS" [$RELEASEASSERTS && $RELEASE]
+			
+			"DEV_BUILD" [!$PUBLISH]
+			"_PROFILE" [$PROFILE && !$RETAIL]
+			"RETAIL_ASSERTS" [$RETAIL && $RETAILASSERTS]
+			
+			"FRAME_POINTER_OMISSION_DISABLED" "VPC" "RAD_TELEMETRY_DISABLED"
+			"_X86_" "_x86_" "PLATFORM_32BITS" "_I386_" "_I386"
+		}
+	}
+}
+
+
+files [!$IS_LIB_PROJECT]
+{
+	folder "Source Files"
+	{
+		"$SRC_DIR/public/tier0/memoverride.cpp"
+		{
+			configuration
+			{
+				compiler { precompiled_header "none" }
+			}
+		}
+	}
+}
+

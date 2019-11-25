@@ -1,0 +1,18 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+macro PLATFORM
+
+configuration
+{
+	linker
+	{
+		libraries
+		{
+			"$LIBPUBLIC/2010/libprotobuf" [$VS2010]
+			"2012/libprotobuf" [$VS2012]
+			"libprotobuf" [$VS2013 || !$WINDOWS]
+		}
+	}
+}
+

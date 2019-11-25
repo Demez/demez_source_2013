@@ -1,0 +1,61 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+
+group "gamedlls" "game" "binaries" "everything"
+{
+	folder "Game"
+	{
+		"client"
+		"server"
+		// "gameui"
+	}
+}
+
+group "libraries" "game" "everything"
+{
+	folder "Libraries"
+	{
+		"mathlib"
+		"vgui_controls"
+		"raytrace"
+		"tier1"
+		"vgui_controls"
+		"fgdlib"
+	}
+}
+
+group "shaders" "everything"
+{
+	folder "Shaders" [$HL2MP]
+	{
+		"game_shader_dx9"
+	}
+}
+
+group "utils" "binaries" "everything"
+{
+	folder "Utils"
+	{
+		"captioncompiler"
+		"glview"
+		"height2normal"
+		"motionmapper"
+		"phonemeextractor"
+		"qc_eyes"
+		"serverplugin_empty"
+		"tgadiff"
+		"vbsp"
+		"vice"
+		"vrad_dll"
+		"vrad_launcher"
+		"vtf2tga"
+		"vtfdiff"
+		"vvis_dll"
+		"vvis_launcher"
+	}
+}
+
+//group "game" {}
+//group "binaries" {}
+//group "everything" {}

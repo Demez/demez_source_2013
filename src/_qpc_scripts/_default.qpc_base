@@ -1,0 +1,21 @@
+//-----------------------------------------------------------------------------
+//	Base Configuration File for QPC
+//-----------------------------------------------------------------------------
+
+macro "SOURCESDK" "1"
+
+include "_qpc_scripts/_projects.qpc_base"
+include "_qpc_scripts/_groups.qpc_base"
+
+// each pass it sets a macro with the name of each configuration in all caps
+configurations
+{
+	"Debug"
+	"Release"
+}
+
+
+
+
+
+

@@ -1,0 +1,115 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+include "$SRC_DIR/_qpc_scripts/version.qpc"
+
+macro NOFPO "1" [$RELEASE]
+macro SRC_DIR
+macro OUTLIBNAME "$PROJECTNAME"
+macro OUTLIBDIR
+macro LIBPUBLIC "$SRC_DIR/lib/public/$PLATFORM"
+macro LIBCOMMON "$SRC_DIR/lib/common/$PLATFORM"
+macro PLATSUBDIR
+macro GAMENAME
+macro INTERMEDIATESUBDIR
+macro _UNITYSUBDIR
+macro _STATICSUBDIR
+macro _SUBDIRSUFFIX "$INTERMEDIATESUBDIR$_STATICSUBDIR$PLATFORM/$GAMENAME$_UNITYSUBDIR"
+
+include "$SRC_DIR/_qpc_scripts/win32/lib_base_debug.qpc"
+include "$SRC_DIR/_qpc_scripts/win32/lib_base_release.qpc"
+include "$SRC_DIR/_qpc_scripts/source_win_base.qpc"
+
+configuration
+{
+	general
+	{
+		out_dir "$OUTLIBDIR" [$WIN32]
+		out_dir "./$CONFIG/x64" [$WIN64]
+		int_dir "./$CONFIG/$_SUBDIRSUFFIX" [$WIN32]
+		int_dir "./Retail/$_SUBDIRSUFFIX" [$RETAIL && $WIN32 && $RELEASE]
+		int_dir "./Profile/$_SUBDIRSUFFIX" [!$RETAIL && $PROFILE && $WIN32 && $RELEASE]
+		int_dir "./$CONFIG/x64" [$WIN64]
+		configuration_type "static_library" [$WINDOWS]
+		language "cpp" [$WINDOWS]
+
+		include_directories
+		{
+			"$SRC_DIR/common" "$SRC_DIR/public" "$SRC_DIR/public/tier0" "$SRC_DIR/public/tier1" [$WINDOWS]
+		}
+
+		options
+		{
+			"/ltcg" [$LTCG && $WIN32 && $RELEASE]
+		}
+	}
+
+	compiler
+	{
+		preprocessor_definitions
+		{
+			"COMPILER_MSVC32" "WIN32" "_WIN32" "_ALLOW_RUNTIME_LIBRARY_MISMATCH" "_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH" "_ALLOW_MSC_VER_MISMATCH" "%(PreprocessorDefinitions)" [$WIN32]
+			"COMPILER_MSVC" "_DLL_EXT=$_DLL_EXT" "LIBNAME=$OUTLIBNAME" "MBCS" "_LIB" "_CRT_SECURE_NO_DEPRECATE" "_CRT_NONSTDC_NO_DEPRECATE" [$WINDOWS]
+			"_HAS_ITERATOR_DEBUGGING=0" [$WIN32 && $DEBUG]
+			"_DEBUG" "DEBUG" [$WINDOWS && $DEBUG]
+			"NDEBUG" [$WINDOWS && $RELEASE]
+			"RELEASEASSERTS" [$RELEASEASSERTS && $RELEASE && $WIN32]
+			"PLATFORM_64BITS" "COMPILER_MSVC64" [$WIN64]
+			"WIN64" "_WIN64" [$WIN64 && $WIN64]
+			"PLATFORM_WINDOWS_PC64" [$WIN64 && $DEBUG]
+		}
+
+		precompiled_header "none" [$WINDOWS]
+
+		options
+		{
+			"/arch:SSE" [$WIN32 && $WIN32]
+			"/ZI" [$WIN32 && $WIN32 && $DEBUG]
+			"/Zi" [$WINDOWS && $DEBUG]
+			"/W4" "/Wp64" "/GF" "/fp:fast" "/Zc:wchar_t" "/Zc:forScope" "/GR" "/errorReport:prompt" [$WINDOWS]
+			"/Od" "/MTd" [$WINDOWS && $DEBUG]
+			"/Z7" "/O2" "/Ob2" "/Oi" "/Ot" "/MT" "/Gy" [$WINDOWS && $RELEASE]
+			"/d2Zi+" [$WIN32 && $RELEASE]
+			"/Oy-" [$NOFPO && $WIN32 && $RELEASE]
+			"/Gm" "/RTC1" [$WIN64 && $DEBUG]
+		}
+	}
+
+	linker
+	{
+		output_file "$OUTLIBDIR/$OUTLIBNAME" [$WINDOWS]
+
+		libraries
+		{
+			"user32.lib" "shell32.lib" [$WIN64 && $RELEASE]
+		}
+
+		options
+		{
+			"/ignore:4221" [$WINDOWS && $WINDOWS]
+			"/NOLOGO" [$WINDOWS]
+		}
+	}
+
+	post_build
+	{
+		use_in_build "True" [$WINDOWS]
+	}
+}
+
+files
+{
+	folder "Source Files"
+	{
+		"$SRC_DIR/common/debug_lib_check.cpp" [!$SOURCESDK]
+		{
+			configuration
+			{
+				compiler
+				{
+					precompiled_header "none"
+				}
+			}
+		}
+	}
+}

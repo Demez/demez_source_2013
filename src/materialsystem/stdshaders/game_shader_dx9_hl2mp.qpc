@@ -1,0 +1,10 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+macro PROJECT_NAME "Shaders (HL2MP)"
+
+macro SRC_DIR "../.."
+macro GAMENAME "mod_hl2mp"
+
+include "$SRC_DIR/materialsystem/stdshaders/game_shader_dx9_base.qpc"
+
