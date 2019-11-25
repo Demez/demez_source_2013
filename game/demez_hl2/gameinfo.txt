@@ -24,8 +24,12 @@
 			game			"../Half-Life 2/episodic"
 			game			"../Half-Life 2/hl2"
 			
-			game+mod			hl2mp/hl2mp_english.vpk
-			game+mod			hl2mp/hl2mp_pak.vpk
+			// TODO: this fucks up some npc models, since these have like no animations/sequences
+			// may need to make a sequence merger python script
+			// however, we need some assets from this for weapon models, and player model animations
+			// and motd
+			//game+mod			hl2mp/hl2mp_english.vpk
+			//game+mod			hl2mp/hl2mp_pak.vpk
 			
 			// workaround to get ep2 and ep1 assets on MP branch
 			//game+mod		"../Source SDK Base 2013 Singleplayer/ep2/ep2_english.vpk"
@@ -41,7 +45,7 @@
 			game+mod		hl2/hl2_sound_misc.vpk
 			game+mod		hl2/hl2_misc.vpk
 			
-			//platform		platform/platform_misc.vpk
+			platform		platform/platform_misc.vpk
 			platform		platform
 		}
 	}
