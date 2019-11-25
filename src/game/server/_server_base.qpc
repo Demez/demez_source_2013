@@ -14,11 +14,10 @@ configuration
 {
 	general
 	{
-		out_dir "./Debug/$GAMENAME" [$WIN32 && $DEBUG]
-		out_dir "./Release/$GAMENAME" [$WIN32 && $RELEASE]
-		out_dir "./$GAMENAME" [$OSX]
-		int_dir "./Debug/$GAMENAME" [$WIN32 && $DEBUG]
-		int_dir "./Release/$GAMENAME" [$WIN32 && $RELEASE]
+		out_dir "$OUT_BIN_DIR"
+		
+		int_dir "./$CONFIG/$GAMENAME" 	[$WINDOWS]
+		int_dir "./$GAMENAME" 			[$OSX]
 		
 		include_directories
 		{
