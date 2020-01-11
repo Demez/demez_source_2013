@@ -23,12 +23,9 @@
 			game			"../Half-Life 2/episodic"
 			game			"../Half-Life 2/hl2"
 			
-			// workaround to get ep2 and ep1 assets on MP branch
-			//game+mod		"../Source SDK Base 2013 Singleplayer/ep2/ep2_english.vpk"
+			// workaround to get ep1 and ep2 assets on MP branch
 			game+mod		"../Source SDK Base 2013 Singleplayer/ep2/ep2_pak.vpk"
-			//game+mod		"../Half-Life 2/episodic/ep1_english.vpk"
 			game+mod		"../Half-Life 2/episodic/ep1_pak.vpk"
-			//game+mod		"D:\sourceengine\extracted_games\HL2-EP2"
 			
 			game+mod		hl2/hl2_english.vpk
 			game+mod		hl2/hl2_pak.vpk
@@ -37,7 +34,7 @@
 			game+mod		hl2/hl2_sound_misc.vpk
 			game+mod		hl2/hl2_misc.vpk
 			
-			//platform		platform/platform_misc.vpk
+			platform		platform/platform_misc.vpk
 			platform		platform
 		}
 	}
