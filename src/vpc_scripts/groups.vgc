@@ -14,6 +14,21 @@ $Group "gamedlls"
 	"server"
 }
 
+$Group "game_libs"
+{
+	"mathlib"
+	"tier1"
+	"vgui_controls"
+}
+
+$Group "libs"
+{
+	"mathlib"
+	"raytrace"
+	"tier1"
+	"vgui_controls"
+}
+
 $Group "game"
 {
 	"client"
