@@ -132,6 +132,35 @@ static impactentry_t cappedPlayerAngularTable[] =
 	//{ 300*300, 500 },
 };
 
+const char* g_player_model_list[] =
+{
+	"models/humans/group03/male_01.mdl",
+	"models/humans/group03/male_02.mdl",
+	"models/humans/group03/female_01.mdl",
+	"models/humans/group03/male_03.mdl",
+	"models/humans/group03/female_02.mdl",
+	"models/humans/group03/male_04.mdl",
+	"models/humans/group03/female_03.mdl",
+	"models/humans/group03/male_05.mdl",
+	"models/humans/group03/female_04.mdl",
+	"models/humans/group03/male_06.mdl",
+	"models/humans/group03/female_06.mdl",
+	"models/humans/group03/male_07.mdl",
+	"models/humans/group03/female_07.mdl",
+	"models/humans/group03/male_08.mdl",
+	"models/humans/group03/male_09.mdl",
+	"models/combine_soldier.mdl",
+	"models/combine_soldier_prisonguard.mdl",
+	"models/combine_super_soldier.mdl",
+	"models/police.mdl",
+};
+
+CON_COMMAND(print_player_models, "list cached player models")
+{
+	for (int i = 0; i < ARRAYSIZE(g_player_model_list); ++i)
+		Msg(g_player_model_list[i]);
+}
+
 static impactdamagetable_t gCappedPlayerImpactDamageTable =
 {
 	cappedPlayerLinearTable,
@@ -435,6 +464,12 @@ void CHL2_Player::Precache( void )
 	PrecacheScriptSound( "HL2Player.TrainUse" );
 	PrecacheScriptSound( "HL2Player.Use" );
 	PrecacheScriptSound( "HL2Player.BurnPain" );
+
+	int player_model_count = ARRAYSIZE(g_player_model_list);
+	int i;
+
+	for (i = 0; i < player_model_count; ++i)
+		PrecacheModel(g_player_model_list[i]);
 }
 
 //-----------------------------------------------------------------------------
