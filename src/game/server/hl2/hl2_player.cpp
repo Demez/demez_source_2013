@@ -132,7 +132,7 @@ static impactentry_t cappedPlayerAngularTable[] =
 	//{ 300*300, 500 },
 };
 
-const char* g_player_model_list[] =
+const char* player_model_list[] =
 {
 	"models/humans/group03/male_01.mdl",
 	"models/humans/group03/male_02.mdl",
@@ -155,10 +155,13 @@ const char* g_player_model_list[] =
 	"models/police.mdl",
 };
 
-CON_COMMAND(print_player_models, "list cached player models")
+CON_COMMAND(hl2_print_player_models, "List cached player models")
 {
-	for (int i = 0; i < ARRAYSIZE(g_player_model_list); ++i)
-		Msg(g_player_model_list[i]);
+	int player_model_list_size = ARRAYSIZE(player_model_list);
+	for (int i = 0; i < player_model_list_size; ++i)
+	{
+		Msg(" - %s\n", player_model_list[i]);
+	}
 }
 
 static impactdamagetable_t gCappedPlayerImpactDamageTable =
@@ -465,11 +468,11 @@ void CHL2_Player::Precache( void )
 	PrecacheScriptSound( "HL2Player.Use" );
 	PrecacheScriptSound( "HL2Player.BurnPain" );
 
-	int player_model_count = ARRAYSIZE(g_player_model_list);
+	int player_model_count = ARRAYSIZE(player_model_list);
 	int i;
 
 	for (i = 0; i < player_model_count; ++i)
-		PrecacheModel(g_player_model_list[i]);
+		PrecacheModel(player_model_list[i]);
 }
 
 //-----------------------------------------------------------------------------
