@@ -48,12 +48,16 @@ ConVar xc_uncrouch_on_jump( "xc_uncrouch_on_jump", "1", FCVAR_ARCHIVE, "Uncrouch
 
 #if defined( HL2_DLL ) || defined( HL2_CLIENT_DLL )
 ConVar player_limit_jump_speed( "player_limit_jump_speed", "1", FCVAR_REPLICATED );
+ConVar hl2_jump_height_mult("hl2_jump_height_mult", "160", FCVAR_ARCHIVE);
+ConVar hl2_bhop_mode("hl2_bhop_mode", "2", FCVAR_ARCHIVE, "0 - hl1, 1 - hl2 release, 2 - abh");
 #endif
 
 // option_duck_method is a carrier convar. Its sole purpose is to serve an easy-to-flip
 // convar which is ONLY set by the X360 controller menu to tell us which way to bind the
 // duck controls. Its value is meaningless anytime we don't have the options window open.
 ConVar option_duck_method("option_duck_method", "1", FCVAR_REPLICATED|FCVAR_ARCHIVE );// 0 = HOLD to duck, 1 = Duck is a toggle
+
+ConVar auto_bhop("auto_bhop", "0", FCVAR_ARCHIVE);
 
 #ifdef STAGING_ONLY
 #ifdef CLIENT_DLL
@@ -2404,7 +2408,7 @@ bool CGameMovement::CheckJumpButton( void )
 		return false;
 #endif
 
-	if ( mv->m_nOldButtons & IN_JUMP )
+	if (mv->m_nOldButtons & IN_JUMP && !auto_bhop.GetBool())
 		return false;		// don't pogo stick
 
 	// Cannot jump will in the unduck transition.
@@ -2434,7 +2438,8 @@ bool CGameMovement::CheckJumpButton( void )
 	{
 #if defined(HL2_DLL) || defined(HL2_CLIENT_DLL)
 		Assert( GetCurrentGravity() == 600.0f );
-		flMul = 160.0f;	// approx. 21 units.
+		//flMul = 160.0f;	// approx. 21 units.
+		flMul = hl2_jump_height_mult.GetFloat();
 #else
 		Assert( GetCurrentGravity() == 800.0f );
 		flMul = 268.3281572999747f;
@@ -2473,24 +2478,46 @@ bool CGameMovement::CheckJumpButton( void )
 	vecForward.z = 0;
 	VectorNormalize( vecForward );
 		
-	// We give a certain percentage of the current forward movement as a bonus to the jump speed.  That bonus is clipped
-	// to not accumulate over time.
-	float flSpeedBoostPerc = ( !pMoveData->m_bIsSprinting && !player->m_Local.m_bDucked ) ? 0.5f : 0.1f;
-	float flSpeedAddition = fabs( mv->m_flForwardMove * flSpeedBoostPerc );
-	float flMaxSpeed = mv->m_flMaxSpeed + ( mv->m_flMaxSpeed * flSpeedBoostPerc );
-	float flNewSpeed = ( flSpeedAddition + mv->m_vecVelocity.Length2D() );
-
-	// If we're over the maximum, we want to only boost as much as will get us to the goal speed
-	if ( flNewSpeed > flMaxSpeed )
+	if (hl2_bhop_mode.GetInt() == 2)
 	{
-		flSpeedAddition -= flNewSpeed - flMaxSpeed;
+		// We give a certain percentage of the current forward movement as a bonus to the jump speed.  That bonus is clipped
+		// to not accumulate over time.
+		float flSpeedBoostPerc = (!pMoveData->m_bIsSprinting && !player->m_Local.m_bDucked) ? 0.5f : 0.1f;
+		float flSpeedAddition = fabs(mv->m_flForwardMove * flSpeedBoostPerc);
+		float flMaxSpeed = mv->m_flMaxSpeed + (mv->m_flMaxSpeed * flSpeedBoostPerc);
+		float flNewSpeed = (flSpeedAddition + mv->m_vecVelocity.Length2D());
+
+		// If we're over the maximum, we want to only boost as much as will get us to the goal speed
+		if (flNewSpeed > flMaxSpeed)
+		{
+			flSpeedAddition -= flNewSpeed - flMaxSpeed;
+		}
+
+		if (mv->m_flForwardMove < 0.0f)
+			flSpeedAddition *= -1.0f;
+
+		// Add it on
+		VectorAdd((vecForward * flSpeedAddition), mv->m_vecVelocity, mv->m_vecVelocity);
 	}
+	else if (hl2_bhop_mode.GetInt() == 1)
+	{
+		if (!pMoveData->m_bIsSprinting && !player->m_Local.m_bDucked)
+		{
+			for (int iAxis = 0; iAxis < 2; ++iAxis)
+			{
+				vecForward[iAxis] *= (mv->m_flForwardMove * 0.5f);
+			}
+		}
+		else
+		{
+			for (int iAxis = 0; iAxis < 2; ++iAxis)
+			{
+				vecForward[iAxis] *= (mv->m_flForwardMove * 0.1f);
+			}
+		}
 
-	if ( mv->m_flForwardMove < 0.0f )
-		flSpeedAddition *= -1.0f;
-
-	// Add it on
-	VectorAdd( (vecForward*flSpeedAddition), mv->m_vecVelocity, mv->m_vecVelocity );
+		VectorAdd(vecForward, mv->m_vecVelocity, mv->m_vecVelocity);
+	}
 #endif
 
 	FinishGravity();
@@ -3955,6 +3982,11 @@ void CGameMovement::CheckFalling( void )
 
 	// let any subclasses know that the player has landed and how hard
 	OnLand(player->m_Local.m_flFallVelocity);
+
+	if (auto_bhop.GetBool() && mv->m_nButtons & IN_JUMP)
+	{
+		CheckJumpButton();
+	}
 	
 	//
 	// Clear the fall velocity so the impact doesn't happen again.
