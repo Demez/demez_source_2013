@@ -8,7 +8,6 @@
 #include "c_vehicle_jeep.h"
 #include "movevars_shared.h"
 #include "view.h"
-#include "flashlighteffect.h"
 #include "c_baseplayer.h"
 #include "c_te_effect_dispatch.h"
 #include "fx.h"
@@ -21,6 +20,7 @@ extern ConVar default_fov;
 ConVar r_JeepViewBlendTo( "r_JeepViewBlendTo", "1", FCVAR_CHEAT );
 ConVar r_JeepViewBlendToScale( "r_JeepViewBlendToScale", "0.03", FCVAR_CHEAT );
 ConVar r_JeepViewBlendToTime( "r_JeepViewBlendToTime", "1.5", FCVAR_CHEAT );
+ConVar r_JeepFOV("fov_vehicle", "90", FCVAR_ARCHIVE);
 
 #define JEEP_DELTA_LENGTH_MAX	12.0f			// 1 foot
 #define JEEP_FRAMETIME_MIN		1e-6
@@ -38,8 +38,6 @@ C_PropJeep::C_PropJeep()
 	m_vecEyeSpeed.Init();
 	m_flViewAngleDeltaTime = 0.0f;
 	m_pHeadlight = NULL;
-	
-	ConVarRef r_JeepFOV( "r_JeepFOV" );
 	m_ViewSmoothingData.flFOV = r_JeepFOV.GetFloat();
 }
 

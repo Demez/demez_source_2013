@@ -9,7 +9,15 @@
 #include "c_vehicle_jeep.h"
 #include "movevars_shared.h"
 #include "view.h"
+
+// i would copy all this stuff to another folder to leave unchanged, but i already did that and forgot to push it
+// so i can't be bothered right now, maybe later. though i probably won't still
+#if defined( DEMEZ_HL2 )
+#include "demez_hl2/headlight.h"
+#else
 #include "flashlighteffect.h"
+#endif
+
 #include "c_baseplayer.h"
 #include "c_te_effect_dispatch.h"
 #include "hl2_vehicle_radar.h"

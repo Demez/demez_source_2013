@@ -11,7 +11,14 @@
 #include "c_prop_vehicle.h"
 //#include "movevars_shared.h"
 //#include "view.h"
+
+// ew
+#if defined(DEMEZ_HL2)
+#include "demez_hl2/headlight.h"
+#else
 #include "flashlighteffect.h"
+#endif
+
 //#include "c_baseplayer.h"
 //#include "c_te_effect_dispatch.h"
 

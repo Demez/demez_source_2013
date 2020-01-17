@@ -22,9 +22,19 @@ $Project "Client (Demez HL2)"
 {
 	$Folder	"Source Files"
 	{
+		-$File	"flashlighteffect.cpp" "flashlighteffect.h"
+		
 		$File	"hud_chat.cpp"
 		$File	"c_team_objectiveresource.cpp"
 		$File	"c_team_objectiveresource.h"
+
+		$Folder	"Demez HL2"
+		{
+			$File	"demez_hl2/flashlight.cpp"
+			$File	"demez_hl2/flashlight.h"
+			$File	"demez_hl2/headlight.cpp"
+			$File	"demez_hl2/headlight.h"
+		}
 
 		$Folder	"HL2 DLL"
 		{

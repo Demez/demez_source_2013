@@ -12,7 +12,6 @@
 #include "cbase.h"
 #include "c_prop_vehicle.h"
 #include "datacache/imdlcache.h"
-#include "flashlighteffect.h"
 #include "movevars_shared.h"
 #include "ammodef.h"
 #include "SpriteTrail.h"
@@ -27,6 +26,13 @@
 #include "c_basehlplayer.h"
 #include "vgui_controls/Controls.h"
 #include "vgui/ISurface.h"
+
+// ew
+#if defined(DEMEZ_HL2)
+#include "demez_hl2/headlight.h"
+#else
+#include "flashlighteffect.h"
+#endif
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
