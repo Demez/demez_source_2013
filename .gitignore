@@ -57,3 +57,7 @@ config.cfg
 
 
 
+*.db
+*.opendb
+*.db-shm
+*.db-wal
