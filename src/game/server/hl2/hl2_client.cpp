@@ -63,6 +63,7 @@ void ClientActive( edict_t *pEdict, bool bLoadGame )
 
 	if ( !bLoadGame )
 	{
+
 		pPlayer->Spawn();
 	}
 }
@@ -124,14 +125,15 @@ void ClientGamePrecache( void )
 
 
 // called by ClientKill and DeadThink
-void respawn( CBaseEntity *pEdict, bool fCopyCorpse )
+void respawn(CBaseEntity* pEdict, bool fCopyCorpse)
 {
+	CHL2_Player* pPlayer = (CHL2_Player*)pEdict;
 	if (gpGlobals->coop || gpGlobals->deathmatch)
 	{
-		if ( fCopyCorpse )
+		if (fCopyCorpse)
 		{
 			// make a copy of the dead body for appearances sake
-			((CHL2_Player *)pEdict)->CreateCorpse();
+			pPlayer->CreateCorpse();
 		}
 
 		// respawn player

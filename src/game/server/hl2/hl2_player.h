@@ -72,6 +72,7 @@ public:
 	}
 };
 
+
 //=============================================================================
 // >> HL2_PLAYER
 //=============================================================================
@@ -108,6 +109,9 @@ public:
 	virtual void 		ModifyOrAppendPlayerCriteria( AI_CriteriaSet& set );
 
 	void				DrawDebugGeometryOverlays(void);
+	void				LoadTransitionFile();
+	void				SaveTransitionFile();
+	virtual bool		WantsLagCompensationOnEntity(const CBasePlayer* pPlayer, const CUserCmd* pCmd, const CBitVec<MAX_EDICTS>* pEntityTransmitBits) const;
 
 	virtual Vector		EyeDirection2D( void );
 	virtual Vector		EyeDirection3D( void );
