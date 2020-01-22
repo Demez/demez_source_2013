@@ -48,16 +48,16 @@ ConVar xc_uncrouch_on_jump( "xc_uncrouch_on_jump", "1", FCVAR_ARCHIVE, "Uncrouch
 
 #if defined( HL2_DLL ) || defined( HL2_CLIENT_DLL )
 ConVar player_limit_jump_speed( "player_limit_jump_speed", "1", FCVAR_REPLICATED );
-ConVar hl2_jump_height_mult("hl2_jump_height_mult", "160", FCVAR_ARCHIVE);
-ConVar hl2_bhop_mode("hl2_bhop_mode", "2", FCVAR_ARCHIVE, "0 - hl1, 1 - hl2 release, 2 - abh");
+ConVar hl2_jump_height_mult("sv_hl2_jump_height_mult", "160", FCVAR_ARCHIVE);
+ConVar hl2_bhop_mode("sv_hl2_bhop_mode", "2", FCVAR_ARCHIVE, "0 - hl1, 1 - hl2 release, 2 - abh");
 #endif
+
+ConVar auto_bhop("sv_auto_bhop", "1", FCVAR_ARCHIVE);
 
 // option_duck_method is a carrier convar. Its sole purpose is to serve an easy-to-flip
 // convar which is ONLY set by the X360 controller menu to tell us which way to bind the
 // duck controls. Its value is meaningless anytime we don't have the options window open.
 ConVar option_duck_method("option_duck_method", "1", FCVAR_REPLICATED|FCVAR_ARCHIVE );// 0 = HOLD to duck, 1 = Duck is a toggle
-
-ConVar auto_bhop("auto_bhop", "0", FCVAR_ARCHIVE);
 
 #ifdef STAGING_ONLY
 #ifdef CLIENT_DLL
