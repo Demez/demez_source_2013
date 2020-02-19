@@ -107,6 +107,7 @@ bool IsInCommentaryMode( void );
 bool IsListeningToCommentary( void );
 
 #if !defined( CSTRIKE_DLL )
+// not even client, wtf
 ConVar cl_sidespeed( "cl_sidespeed", "450", FCVAR_REPLICATED | FCVAR_CHEAT );
 ConVar cl_upspeed( "cl_upspeed", "320", FCVAR_REPLICATED | FCVAR_CHEAT );
 ConVar cl_forwardspeed( "cl_forwardspeed", "450", FCVAR_REPLICATED | FCVAR_CHEAT );
@@ -115,6 +116,8 @@ ConVar cl_backspeed( "cl_backspeed", "450", FCVAR_REPLICATED | FCVAR_CHEAT );
 
 // This is declared in the engine, too
 ConVar	sv_noclipduringpause( "sv_noclipduringpause", "0", FCVAR_REPLICATED | FCVAR_CHEAT, "If cheats are enabled, then you can noclip with the game paused (for doing screenshots, etc.)." );
+
+ConVar	sv_new_weapon_switch( "sv_new_weapon_switch", "0", FCVAR_GAMEDLL | FCVAR_ARCHIVE, "Switch to a new weapon on pickup" );
 
 extern ConVar sv_maxunlag;
 extern ConVar sv_turbophysics;
@@ -6116,6 +6119,64 @@ void CC_CH_CreateAirboat( void )
 
 static ConCommand ch_createairboat( "ch_createairboat", CC_CH_CreateAirboat, "Spawn airboat in front of the player.", FCVAR_CHEAT );
 
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+static void CreateCrane(CBasePlayer* pPlayer, const char* magnet_name, const char* magnet_mass)
+{
+	// Cheat to create a crane in front of the player
+	Vector vecForward;
+	AngleVectors(pPlayer->EyeAngles(), &vecForward);
+
+	CBaseEntity* magnet = (CBaseEntity*) CreateEntityByName("phys_magnet");
+	if (magnet)
+	{
+		Vector vecOrigin = pPlayer->GetAbsOrigin() + vecForward * 256 + Vector(0, 0, 256);
+		QAngle vecAngles(0, pPlayer->GetAbsAngles().y - 90, 0);
+		magnet->SetAbsOrigin(vecOrigin);
+		magnet->SetAbsAngles(vecAngles);
+		magnet->KeyValue("model", "models/props_wasteland/cranemagnet01a.mdl");
+		magnet->KeyValue("massScale", magnet_mass);
+		magnet->KeyValue("targetname", magnet_name);
+		magnet->KeyValue("overridescript", "damping,0.2,rotdamping,0.2,inertia,0.3");
+		DispatchSpawn(magnet);
+		magnet->Activate();
+		magnet->Teleport(&vecOrigin, &vecAngles, NULL);
+
+		CBaseEntity* crane = (CBaseEntity*) CreateEntityByName("prop_vehicle_crane");
+		if (crane)
+		{
+			Vector vecOrigin = pPlayer->GetAbsOrigin() + vecForward * 256 + Vector(0, 0, 64);
+			QAngle vecAngles(0, pPlayer->GetAbsAngles().y - 90, 0);
+			crane->SetAbsOrigin(vecOrigin);
+			crane->SetAbsAngles(vecAngles);
+			crane->KeyValue("model", "models/Cranes/crane_docks.mdl");
+			crane->KeyValue("targetname", "crane");
+			crane->KeyValue("vehiclescript", "scripts/vehicles/crane.txt");
+			crane->KeyValue("magnetname", magnet_name);
+			DispatchSpawn(crane);
+			crane->Activate();
+			crane->Teleport(&vecOrigin, &vecAngles, NULL);
+		}
+	}
+}
+
+void CC_CH_CreateCrane(const CCommand& args)
+{
+	CBasePlayer* pPlayer = UTIL_GetCommandClient();
+	if (!pPlayer)
+		return;
+
+	if (args.ArgC() < 3)
+		CreateCrane(pPlayer, "cranemagnet2", "1000");
+	else if (args.ArgC() < 3)
+		CreateCrane(pPlayer, args[1], "1000");
+	else
+		CreateCrane(pPlayer, args[1], args[2]);	
+}
+
+static ConCommand ch_createcrane("ch_createcrane", CC_CH_CreateCrane, "Spawn crane in front of the player.", FCVAR_CHEAT);
+
 
 //=========================================================
 //=========================================================
@@ -6597,7 +6658,7 @@ bool CBasePlayer::BumpWeapon( CBaseCombatWeapon *pWeapon )
 	{
 		if ( gEvilImpulse101 )
 		{
-			UTIL_Remove( pWeapon );
+			// UTIL_Remove( pWeapon );
 		}
 		return false;
 	}
@@ -6670,7 +6731,8 @@ bool CBasePlayer::BumpWeapon( CBaseCombatWeapon *pWeapon )
 					pWeapon->m_iClip1 = pWeapon->GetMaxClip1();
 				}
 
-				Weapon_Switch( pWeapon );
+				if (sv_new_weapon_switch.GetBool())
+					Weapon_Switch( pWeapon );
 			}
 #endif
 		}
