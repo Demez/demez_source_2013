@@ -16,7 +16,8 @@
 			game+mod		|gameinfo_path|.
 			gamebin			|gameinfo_path|bin
 			
-			game_write+mod_write+default_write_path+logdir+config		|gameinfo_path|../demez_hl2_write
+			// game_write+mod_write+default_write_path+logdir+config	|gameinfo_path|../demez_hl2_write
+			game_write+mod_write+default_write_path+logdir+config		|gameinfo_path|
 			
 			// load the maps, sdk 2013 maps have no cubemaps
 			game			"../Half-Life 2/ep2"
@@ -24,7 +25,8 @@
 			game			"../Half-Life 2/hl2"
 			
 			// workaround to get ep1 and ep2 assets on MP branch
-			game+mod		"../Source SDK Base 2013 Singleplayer/ep2/ep2_pak.vpk"
+			//game+mod		"../Source SDK Base 2013 Singleplayer/ep2/ep2_pak.vpk"
+			game+mod		"../Half-Life 2/ep2/ep2_pak.vpk"
 			game+mod		"../Half-Life 2/episodic/ep1_pak.vpk"
 			
 			game+mod		hl2/hl2_english.vpk
