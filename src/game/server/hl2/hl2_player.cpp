@@ -1264,20 +1264,26 @@ void CHL2_Player::SaveTransitionFile(void)
 
 			//This is our player. This is set because currently this section is in TakeDamage of hl2mp_player.cpp
 			CBasePlayer* pPlayer = ToBasePlayer(pPlayerMP);
-			const char* weaponName = "";
-			weaponName = pPlayer->GetActiveWeapon()->GetClassname();
 
-			//Get their current weapon so we can attempt to switch to it on spawning.
-			char ActiveWepPre[32];
-			Q_snprintf(ActiveWepPre, sizeof(ActiveWepPre), "\n""\"ActiveWeapon\" ");
-			//Write our weapon.
-			g_pFullFileSystem->Write(&ActiveWepPre, strlen(ActiveWepPre), hFile);
-			char ActiveWep[32];
-			Q_snprintf(ActiveWep, sizeof(ActiveWep), "\"%s\"\n", weaponName);
-			//Write our weapon.
-			g_pFullFileSystem->Write(&ActiveWep, strlen(ActiveWep), hFile);
-
-
+			if (pPlayer->HasWeapons())
+			{
+				CBaseCombatWeapon* weapon = pPlayer->GetActiveWeapon();
+				if (weapon)
+				{
+					const char* weaponName = "";
+					weaponName = weapon->GetClassname();
+					//Get their current weapon so we can attempt to switch to it on spawning.
+					char ActiveWepPre[32];
+					Q_snprintf(ActiveWepPre, sizeof(ActiveWepPre), "\n""\"ActiveWeapon\" ");
+					//Write our weapon.
+					g_pFullFileSystem->Write(&ActiveWepPre, strlen(ActiveWepPre), hFile);
+					char ActiveWep[32];
+					Q_snprintf(ActiveWep, sizeof(ActiveWep), "\"%s\"\n", weaponName);
+					//Write our weapon.
+					g_pFullFileSystem->Write(&ActiveWep, strlen(ActiveWep), hFile);
+				}
+			}
+			
 			for (int i = 0; i < WeaponCount(); ++i)
 			{
 				pCheck = GetWeapon(i);
@@ -2277,6 +2283,33 @@ void CHL2_Player::LoadTransitionFile(void)
 	}
 #endif //SecobMod__SAVERESTORE
 }
+
+
+void transition_save_func(void)
+{
+	CBasePlayer* pPlayer = UTIL_GetCommandClient();
+	if (pPlayer)
+	{
+		CHL2_Player* pHL2Player = dynamic_cast<CHL2_Player*>(pPlayer);
+		pHL2Player->SaveTransitionFile();
+	}
+}
+
+
+void transition_load_func(void)
+{
+	CBasePlayer* pPlayer = UTIL_GetCommandClient();
+	if (pPlayer)
+	{
+		CHL2_Player* pHL2Player = dynamic_cast<CHL2_Player*>(pPlayer);
+		pHL2Player->LoadTransitionFile();
+	}
+}
+
+
+static ConCommand transition_save("transition_save", transition_save_func, "Save Level Transition File");
+static ConCommand transition_load("transition_load", transition_load_func, "Load Level Transition File");
+
 
 //-----------------------------------------------------------------------------
 // Purpose: Sets HL2 specific defaults.
