@@ -6131,3 +6131,21 @@ static ConCommand ent_rotate("ent_rotate", CC_Ent_Rotate, "Rotates an entity by 
 
 // This is a dummy. The entity is entirely clientside.
 LINK_ENTITY_TO_CLASS( func_proprrespawnzone, CBaseEntity );
+
+
+
+//------------------------------------------------------------------------------
+// Gets info of entity your currently looking at
+//------------------------------------------------------------------------------
+void CC_Ent_Info_View( const CCommand &args )
+{
+	CBasePlayer* pPlayer = UTIL_GetCommandClient();
+	CBaseEntity* pEntity = FindPickerEntity( pPlayer );
+	if ( !pEntity )
+		return;
+
+	Msg("Classname: %s\n" "Target Name: %s\n", pEntity->GetClassname(), pEntity->GetEntityName());
+}
+
+static ConCommand ent_info_view("ent_info_view", CC_Ent_Info_View, "Get info of entity your currently looking at", FCVAR_CHEAT);
+
