@@ -1,0 +1,72 @@
+// ---------------------------------------------------------------
+// Base file included in all projects
+// ---------------------------------------------------------------
+macro CONFIG "$QPC_CONFIG"
+
+macro WIN32	            "1"        [$WINDOWS && $I386]
+macro WIN64	            "1"        [$WINDOWS && $AMD64]
+
+macro LINUX32	        "1"        [$LINUX && $I386]
+macro LINUX64	        "1"        [$LINUX && $AMD64]
+
+macro 32BITS	        "1"        [$I386]
+macro 64BITS	        "1"        [$AMD64]
+
+macro NOFPO "1" [$RELEASE]
+
+macro LIBPUBLIC "$SRCDIR/lib/public"
+macro LIBCOMMON "$SRCDIR/lib/common"
+
+macro PLATFORM ""
+
+macro GAMENAME
+macro _SUBDIRSUFFIX "$GAMENAME"
+
+macro BINDEFAULT "$SRCDIR/../game/bin/$_SUBDIRSUFFIX"
+
+include "$SRCDIR/_qpc_scripts/win/base_vstudio.qpc"	[$WINDOWS]
+
+configuration
+{
+	general
+	{
+		language "cpp"
+		include_directories { "$SRCDIR/common" "$SRCDIR/public" "$SRCDIR/public/tier0" "$SRCDIR/public/tier1" }
+	}
+	
+	compiler
+	{
+		preprocessor_definitions
+		{
+			"STAGING_ONLY" [$STAGING_ONLY]
+			
+			"_HAS_ITERATOR_DEBUGGING=0" "_DEBUG" "DEBUG" 	[$DEBUG]
+			"NDEBUG"										[$RELEASE]
+			
+			"RELEASE_ASSERTS" [$RELEASEASSERTS && $RELEASE]
+			
+			"DEV_BUILD" [!$PUBLISH]
+			"_PROFILE" [$PROFILE && !$RETAIL]
+			"RETAIL_ASSERTS" [$RETAIL && $RETAILASSERTS]
+			
+			"FRAME_POINTER_OMISSION_DISABLED" "VPC" "RAD_TELEMETRY_DISABLED"
+			"_X86_" "_x86_" "PLATFORM_32BITS" "_I386_" "_I386"
+		}
+	}
+}
+
+
+files [!$IS_LIB_PROJECT]
+{
+	folder "Source Files"
+	{
+		"$SRCDIR/public/tier0/memoverride.cpp"
+		{
+			configuration
+			{
+				compiler { precompiled_header "none" }
+			}
+		}
+	}
+}
+

@@ -1,0 +1,40 @@
+// ---------------------------------------------------------------
+// Base Dynamic Library Settings
+// ---------------------------------------------------------------
+macro OUT_BIN_NAME "$PROJECT_NAME"	[!$OUT_BIN_NAME]
+macro OUT_BIN_DIR "$BINDEFAULT"		[!$OUT_BIN_DIR]
+macro OUTDLLEXT "$_BIN_EXT"
+
+include "$SRCDIR/_qpc_scripts/source_base.qpc"
+
+include "$SRCDIR/_qpc_scripts/posix/dll_base.qpc" 	[$POSIX]
+include "$SRCDIR/_qpc_scripts/win/dll_base.qpc" 	[$WINDOWS]
+
+configuration
+{
+	general
+	{
+		out_name "$OUT_BIN_NAME"
+		
+		out_dir "./$OUT_BIN_DIR"
+		int_dir "./$CONFIG/$_SUBDIRSUFFIX"
+		
+		configuration_type "dynamic_library"
+
+		library_directories
+		{
+			"$LIBCOMMON" "$LIBPUBLIC"
+		}
+	}
+	
+	linker
+	{
+		libraries
+		{
+			"$LIBPUBLIC/tier0"
+			"$LIBPUBLIC/tier1"
+			"$LIBPUBLIC/vstdlib"
+		}
+	}
+}
+

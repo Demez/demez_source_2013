@@ -1,0 +1,37 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+include "$SRCDIR/_qpc_scripts/version.qpc"
+include "$SRCDIR/_qpc_scripts/posix_base.qpc"
+
+macro OUT_BIN_NAME "$PROJECTNAME"
+macro OUT_BIN_DIR "$BINDEFAULT"
+
+configuration
+{
+	general
+	{
+		configuration_type "dynamic_library"
+	}
+
+	compiler
+	{
+		preprocessor_definitions
+		{
+			"DLLNAME=$OUT_BIN_NAME"
+		}
+	}
+
+	linker
+	{
+		output_file "$(OBJ_DIR)/$OUT_BIN_NAME$OUTDLLEXT"
+	}
+}
+
+files
+{
+	folder "Resources"
+	{
+		"$ROOTSCRIPT"
+	}
+}

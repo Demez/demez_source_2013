@@ -1,0 +1,38 @@
+// ------------------------------------------------------------------------------------------
+// Shared Base Settings for Dynamic Libraries and Applications for Visual Studio
+// ------------------------------------------------------------------------------------------
+configuration
+{	
+	linker
+	{
+		output_file "$(OutDir)/$OUT_BIN_NAME"
+		debug_file "$(IntDir)/$(TargetName)"
+		
+		libraries
+		{
+			"advapi32.lib"
+			"gdi32.lib"
+			"comdlg32.lib"
+			"ole32.lib"
+		}
+		
+		ignore_libraries
+		{
+			"libcmt" 	[$DEBUG]			
+			"libcmtd" 	[$RELEASE]
+			"libc"
+			"libcd"
+		}
+		
+		options
+		{
+			"/INCREMENTAL:NO" 	[$RELEASE]
+			
+			"/OPT:ICF" 			[$RETAIL]
+			"/OPT:NOICF" 		[!$RETAIL]
+			
+			"/DEBUG" "/SUBSYSTEM:WINDOWS" "/ERRORREPORT:PROMPT" "/SAFESEH:NO"
+		}
+	}
+}
+

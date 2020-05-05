@@ -1,0 +1,59 @@
+// ---------------------------------------------------------------
+// Auto Generated QPC Script - Fix if needed before using
+// ---------------------------------------------------------------
+include "$SRCDIR/_qpc_scripts/version.qpc"
+
+macro SRCDIR
+macro OUT_BIN_NAME "$PROJECTNAME"
+macro IS_LIB_PROJECT "1"
+
+include "$SRCDIR/_qpc_scripts/source_posix_base.qpc"
+include "$SRCDIR/_qpc_scripts/loadaddress.qpc"
+
+configuration
+{
+	general
+	{
+		configuration_type "application"
+	}
+
+	compiler
+	{
+		preprocessor_definitions
+		{
+			"EXENAME=$OUT_BIN_NAME"
+		}
+	}
+
+	linker
+	{
+		output_file "$SRCDIR/../game/$OUT_BIN_NAME"
+
+		options
+		{
+			"-Wl" "--no-as-needed -ltcmalloc_minimal -Wl" "--as-needed" [$LINUX && !$DEDICATED]
+		}
+	}
+}
+
+files
+{
+	folder "Source Files"
+	{
+		"$SRCDIR/public/tier0/memoverride.cpp"
+		{
+			configuration
+			{
+				compiler
+				{
+					precompiled_header "none"
+				}
+			}
+		}
+	}
+
+	folder "Resources"
+	{
+		"$ROOTSCRIPT"
+	}
+}
