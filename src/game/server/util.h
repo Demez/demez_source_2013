@@ -231,6 +231,7 @@ CBasePlayer* UTIL_GetLocalPlayer( void );
 
 // multiplayer use
 CBasePlayer* UTIL_GetNearestPlayer( const Vector& origin );
+CBasePlayer* UTIL_GetNearestPlayerPreferVisible( CBaseEntity* pLooker, int mask = MASK_SOLID_BRUSHONLY );
 CBasePlayer* UTIL_GetNearestVisiblePlayer( CBaseEntity* pLooker, int mask = MASK_SOLID_BRUSHONLY );
 CBasePlayer* UTIL_GetOtherNearestPlayer( const Vector& origin );
 
@@ -243,6 +244,9 @@ CBasePlayer* UTIL_PlayerByName( const char *name ); // not case sensitive
 // Returns true if the command was issued by the listenserver host, or by the dedicated server, via rcon or the server console.
 // This is valid during ConCommand execution.
 bool UTIL_IsCommandIssuedByServerAdmin( void );
+
+// Return true if the any player is looking at the entity.
+bool UTIL_IsAnyPlayerLookingAtEntity( CBaseEntity* pEntity );
 
 CBaseEntity* UTIL_EntityByIndex( int entityIndex );
 
