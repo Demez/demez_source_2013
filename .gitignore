@@ -61,3 +61,9 @@ config.cfg
 *.opendb
 *.db-shm
 *.db-wal
+*.ain
+*.7z
+*.bak
+*.cache
+*.vtf
+*.wav
