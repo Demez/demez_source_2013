@@ -679,6 +679,7 @@ void CTeamplayRoundBasedRules::Think( void )
 //-----------------------------------------------------------------------------
 bool CTeamplayRoundBasedRules::TimerMayExpire( void )
 {
+/*
 #ifndef CSTRIKE_DLL
 	// team_train_watchers can also prevent timer expiring ( overtime )
 	CTeamTrainWatcher *pWatcher = dynamic_cast<CTeamTrainWatcher*>( gEntList.FindEntityByClassname( NULL, "team_train_watcher" ) );
@@ -692,6 +693,7 @@ bool CTeamplayRoundBasedRules::TimerMayExpire( void )
 		pWatcher = dynamic_cast<CTeamTrainWatcher*>( gEntList.FindEntityByClassname( pWatcher, "team_train_watcher" ) );
 	}
 #endif
+*/
 
 	return BaseClass::TimerMayExpire();
 }
@@ -817,6 +819,8 @@ void CTeamplayRoundBasedRules::SetOvertime( bool bOvertime )
 	{
 		// tell train watchers that we've transitioned to overtime
 
+		// just gonna comment this out real quick
+		/*
 #ifndef CSTRIKE_DLL
 		CTeamTrainWatcher *pWatcher = dynamic_cast<CTeamTrainWatcher*>( gEntList.FindEntityByClassname( NULL, "team_train_watcher" ) );
 		while ( pWatcher )
@@ -827,6 +831,7 @@ void CTeamplayRoundBasedRules::SetOvertime( bool bOvertime )
 			pWatcher = dynamic_cast<CTeamTrainWatcher*>( gEntList.FindEntityByClassname( pWatcher, "team_train_watcher" ) );
 		}
 #endif
+		*/
 	}
 }
 
